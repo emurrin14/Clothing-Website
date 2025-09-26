@@ -92,12 +92,6 @@ width:auto
       gap:var(--gap);
       row-gap: 70px;
       margin-bottom: 65px;
-      
-      
-      /* shadow and hover element
-            box-shadow:0 6px 18px rgba(2,6,23,0.08);
-            transition:transform .22s ease, box-shadow .22s ease;
-            */
 
     }
     figure.card{
@@ -118,7 +112,7 @@ width:auto
     }
 
     figcaption{
-      padding:2rem 1rem;
+      padding:0px 1rem;
       font-size:1.5rem;
       color:black;
       display:flex;align-items:center;justify-content:center;gap:.5rem
@@ -220,7 +214,7 @@ width:auto
   padding: 10px 15px;
   text-decoration: none;
   font-size: 18px;
-  color: #818181;
+  color: #464646;
   display: block;
   transition: 0.3s;
 }
@@ -233,7 +227,7 @@ width:auto
   left: 0;
   z-index: 1001;
 }
-/* END SIDEBAR MENU */
+/* END TOGGLEABLE SIDEBAR MENU */
 
 /* START HAMBURGER MENU STYLE */
 .hamburger-menu {

@@ -40,7 +40,7 @@
     <!-- END HAMBURGER MENU -->
 
     <!-- START TITLE PIC -->
-  <a href="index.html">
+  <a href="Index.html">
     <img class="title" src="https://i.ibb.co/Mxcq2YCX/title.jpg" alt="title">
   </a>
 
@@ -112,29 +112,7 @@
     </section>
   </main>
 
-<script> // sticky header script for shadow //
-window.onscroll = function() {myFunction()};
+  <script src="Scripts.js"></script>
 
-var header = document.getElementById("dynamic-header");
-var sticky = header.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
-</script>
-
-<script>
-// hamburger menu animation script //
-const hamburger = document.querySelector(".hamburger-menu");
-const sidebar = document.querySelector(".sidebar");
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  sidebar.classList.toggle("active");
-});
-</script>
 </body>
 </html>
