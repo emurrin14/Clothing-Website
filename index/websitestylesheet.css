@@ -26,7 +26,7 @@
   max-width: 100%;
   background-color: white;
   color: white;
-  z-index: 1000;
+  z-index: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +42,7 @@
   position: absolute;
   left: 1rem;
   padding: 1rem;
+  z-index: 2000;
 }        
 
 .header .title{
@@ -56,6 +57,7 @@
 
 /* START TOP HEADER */
 .topbar1 {
+  position: relative;
   background-color: black;  
   justify-content: center;
   align-items: center;
@@ -64,7 +66,7 @@
   color:white;
   display:flex;
   margin-top: 0px;
-  z-index: 2;
+  z-index: 3000;
 }
 .topbar1 .topbar1textleft{
 width: auto;
@@ -229,30 +231,28 @@ width:auto
 /* When the sidebar is active (visible) */
 .sidebar.active{
   left: 0;
+  z-index: 1001;
 }
 /* END SIDEBAR MENU */
 
 /* START HAMBURGER MENU STYLE */
 .hamburger-menu {
-  position: relative;
+  position: absolute;
   width: 30px;
   height: 30px;
   cursor: pointer;
+  z-index: 2000;
 }
 
 .hamburger-menu span {
   position: absolute;
-  left: 50%;
   width: 30px;
   height: 3px;
   background-color: black;
   transform: translateX(-50%);
   transition: 0.3s ease;
   display: block;
-  z-index: 1004;
-}
-.hamburger-menu{
-  z-index: 1004;
+  z-index: 2001;
 }
 /* Top bar */
 .hamburger-menu span:nth-child(1) {
