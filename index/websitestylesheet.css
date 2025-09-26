@@ -234,10 +234,10 @@ width:auto
 
 /* START HAMBURGER MENU STYLE */
 .hamburger-menu {
-  position: relative;           /* ✅ Needed for absolute children */
+  position: relative;
   width: 30px;
   height: 30px;
-  cursor: pointer;              /* Optional: makes it clickable */
+  cursor: pointer;
 }
 
 .hamburger-menu span {
@@ -246,11 +246,14 @@ width:auto
   width: 30px;
   height: 3px;
   background-color: black;
-  transform: translateX(-50%);  /* Center horizontally */
+  transform: translateX(-50%);
   transition: 0.3s ease;
-  display: block;               /* ✅ Makes sure they render as blocks */
+  display: block;
+  z-index: 1004;
 }
-
+.hamburger-menu{
+  z-index: 1004;
+}
 /* Top bar */
 .hamburger-menu span:nth-child(1) {
   top: 20%;
