@@ -1,4 +1,4 @@
- :root{
+:root{
       --bg: #ffffff;
       --card: #ffffff;
       --muted: #64748b;
@@ -76,6 +76,13 @@ position:absolute;
 .topbar1 .topbar1textcenter{
 width:auto
 }
+.header .profile-icon img {
+  position: absolute;
+  right: 1rem;
+  width: 30px;
+  height: auto;
+  bottom: 1.3rem;  
+}
 
 .topbar1 .topbar1textleft,
 .topbar1 .topbar1textright {
@@ -141,7 +148,7 @@ width:auto
           gap:5px;
           row-gap: 5px;
           margin-bottom: 0rem;
-          margin-top: 6rem;
+          margin-top: 0rem;
         }
 
     figure.card2{
@@ -174,7 +181,7 @@ width:auto
 .productinfo{
   flex-direction: column;
   margin-right: 3rem;
-  margin-top: 6rem;
+  margin-top: 0rem;
   gap: 1rem;
   border: 1px solid black;
   background: #fff;
@@ -279,3 +286,13 @@ width:auto
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 /* END HAMBURGER MENU STYLE */
+/* START PROFILE SINGUP PAGE */
+.singin-box{
+    display: flex;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 24rem;
+    width: 18rem;
+}

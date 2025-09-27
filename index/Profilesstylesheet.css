@@ -1,0 +1,8 @@
+.signin-box{
+    display: flex;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 33vh;
+}
