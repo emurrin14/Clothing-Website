@@ -1,0 +1,162 @@
+<!--
+</head>
+<body>
+<h1>Available Listings</h1>
+
+<div class="listings-container">
+    {% if listings %}
+    {% for listing in listings %}
+    <a href="{% url 'listing' listing.id %}" class="listing-card">
+        {% if listing.primary_image %}
+        <img src="{{ listing.primary_image.url }}" alt="{{ listing.title }}">
+        {% else %}
+        <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+        {% endif %}
+        <h2>{{ listing.title }}</h2>
+        <p>{{ listing.description|truncatechars:100 }}</p> {# Truncate long descriptions #}
+        <p class="price">${{ listing.price }}</p>
+    </a>
+    {% endfor %}
+    {% else %}
+    <p class="no-listings">No listings found at the moment.</p>
+    {% endif %}
+</div>
+</body>
+</html>
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'clothesshop/css/websitestylesheet.css' %}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  
+<title>Clothesshop - All Listings</title>
+
+  <style>
+   .content,figcaption {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+    html,body{height:100%;margin:0;}
+    .wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem}
+  </style>
+
+</head>
+<body class="content">
+  
+  <!--still topbar-->
+<div class="topbar1">
+  <div class="topbar1textleft">socials</div>
+  <div class="topbar1textcenter">24 Hour Sale!!!</div>
+</div>
+
+</div>
+<!-- START HAMBURGER MENU -->
+<header id="dynamic-header" class="header">
+  <div class="hamburger-menu menu-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+    <!-- END HAMBURGER MENU -->
+
+    <!-- START TITLE PIC -->
+  <a href="Index.html">
+    <img class="title" src="../Pictures/title.jpg" alt="title">
+  </a>
+  <div class="profile-icon">
+    <a href="Profiles.html">
+    <img src="../Pictures/user.png" alt="profile">
+    </a>
+  </div>
+</header>
+
+<!-- START TOGGLEABLE SIDEBAR MENU -->
+<div class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="product.html">Southpole Pants</a>
+    <a href="trackpantspage.html">Track Pants</a>
+    <a href="jortspage.html">Jorts</a>
+    <a href="aboutuspage.html">About Us</a>
+</div>
+
+  <!-- image content -->
+  <main class="wrap imgcontent">
+    <section class="grid" aria-label="Gallery of images">
+  {% if listings %}
+  {% for listing in listings %}
+
+      <figure class="card">
+        <div class="hover-image">
+          <img class="hover-main" src="../Pictures/tracks.jpg" alt="track pants" loading="lazy">
+          <img class="hover-alt" src="../Pictures/tracks2.jpg" alt="track pants" loading="lazy">
+        </div>
+          <figcaption>
+            <span>Track Pants</span>
+          </figcaption>
+      </figure>
+
+      <figure class="card">
+          <a href="{% url 'listing' listing.id %}">
+      <div class="hover-image">
+        {% if listing.primary_image %}
+        <img class="hover-main" src="{{ listing.primary_image.url }}" alt="{{ listing.title }}" loading="lazy">
+        <img class="hover-alt" src="{{ listing.secondary_image.url }}" alt="{{ listing.title }}" loading="lazy">
+        {% else %}
+        <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+        {% endif %}
+      </div>
+        <figcaption>
+          <span>{{ listing.title }}</span>
+        </figcaption>
+          </a>
+        </figure>
+      {% endfor %}
+
+      <figure class="card">
+        <div class="hover-image">
+          <img class="hover-main" src="../Pictures/sp.jpg" alt="southpole pants" loading="lazy">
+          <img class="hover-alt" src="../Pictures/sp2.jpg" alt="track pants" loading="lazy">
+        </div>
+        <figcaption>
+          <span>southpole jorts</span>
+        </figcaption>
+      </figure>
+
+      <figure class="card">
+        <div class="hover-image">
+          <img class="hover-main" src="../Pictures/risk.jpg" alt="southpole pants" loading="lazy">
+          <img class="hover-alt" src="../Pictures/risk2.jpg" alt="track pants" loading="lazy">
+        </div>
+        <figcaption>
+          <span>Risk jorts</span>
+        </figcaption>
+      </figure>
+      
+      <figure class="card">
+        <div class="hover-image">
+          <img class="hover-main" src="../Pictures/wrangler.jpg" alt="southpole pants" loading="lazy">
+          <img class="hover-alt" src="../Pictures/wrangler2.jpg" alt="track pants" loading="lazy">
+        </div>
+        <figcaption>
+          <span>wrangler jorts</span>
+        </figcaption>
+      </figure>
+
+  {% else %}
+  <p class="no-listings">No listings found at the moment.</p>
+  {% endif %}
+
+    </section>
+  </main>
+
+  <script src="Scripts.js"></script>
+
+</body>
+</html>
