@@ -16,7 +16,7 @@
 
 
 .imgcontent{
-  margin-top: 80px;
+  margin-top: 40px;
 }
 /* START STICKY HEADER */
 .header {
@@ -76,7 +76,7 @@ position:absolute;
 .topbar1 .topbar1textcenter{
 width:auto
 }
-.header .profile-icon img {
+.header .profile-icon .profileicon {
   position: absolute;
   right: 1rem;
   width: 30px;
@@ -107,6 +107,9 @@ width:auto
       overflow:hidden;
       display:flex;
       flex-direction:column;
+      text-decoration: none;
+    }
+    .product-title{
       text-decoration: none;
     }
 
@@ -187,9 +190,14 @@ width:auto
   border: 1px solid black;
   background: #fff;
 }
+.prod-title{
+    color: black;
+  font-size: 3rem;
+  text-align: center;
+}
 .price{
   color: black;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
 }
 .description{
