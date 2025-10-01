@@ -5,25 +5,42 @@
 
 {% block content %}
 <body>
-    <h1>Your Shopping Cart</h1>
+    <h1 class="yourshoppingcart">Your Cart</h1>
 
-    {% if not cart.items.all %}
-        <p>Your cart is empty.</p>
-    {% else %}
-        <ul>
-            {% for item in cart.items.all %}
-                <li>
-                    {{ item.quantity }} x {{ item.product.title }} - ${{ item.subtotal }}
-                </li>
-            {% endfor %}
-        </ul>
-        <h3>Total: ${{ cart.total_price }}</h3>
-    {% endif %}
+{% if not cart.items.all %}
+    <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem;">Your cart is empty.</p>
+{% else %}
+<div class="cart-container">
+  <ul>
+    {% for item in cart.items.all %}
+        <li class="cart-contents">
+            {% if item.product.primary_image %}
+                <img src="{{ item.product.primary_image.url }}" alt="{{ item.product.title }}" class="cart-item-image">
+                {% else %}
+                <div class="no-image-placeholder">No Image</div>
+            {% endif %}
+        <div class="cart-item-details">
+              {{ item.quantity }} x {{ item.product.title }} - ${{ item.subtotal }} 
 
-    <a href="{% url 'index' %}">Continue Shopping</a>
-
-</body>
-</html>
+              <a class="remove-item-btn" href="{% url 'remove_from_cart' item.id %}" ">
+                &times; Remove
+        </div>
+            </a>
+            <div class="quantity-controls">
+                <a class="plus-button" href="{% url 'add_to_cart' item.product.id %}">+</a>
+                
+                {% if item.quantity > 1 %}
+                <a class="minus-button" href="{% url 'subtract_from_cart' item.id %}">-</a>
+                {% else %}
+                <a class="minus-button disabled" href="#">-</a>
+                {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+  </ul>
+</div>
+<h3 class="carttotal">Total: ${{ cart.total_price }}</h3>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

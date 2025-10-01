@@ -26,20 +26,24 @@
   <!-- START HEADER -->
   <header id="dynamic-header" class="header">
 
-    <!-- Left: Hamburger -->
-    <div class="hamburger-menu menu-icon">
-      <span></span>
-      <span></span>
-      <span></span>
+    <!-- Left Group -->
+    <div class="header-group left">
+      <div class="hamburger-menu menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   
-    <!-- Center: Title -->
-    <a href="{% url 'index' %}">
-    <img class="title" src="{%  static 'images/title.jpg' %}" alt="title">
-    </a>
+    <!-- Center Group -->
+    <div class="header-group center">
+      <a href="{% url 'index' %}">
+        <img class="title" src="{% static 'images/title.jpg' %}" alt="title">
+      </a>
+    </div>
   
-    <!-- Right: Cart + Profile -->
-    <div class="icons-right">
+    <!-- Right Group -->
+    <div class="header-group right icons-right">
       <a href="{% url 'view_cart' %}">
         <svg fill="none" stroke="#000" stroke-width="2" xmlns="http://www.w3.org/2000/svg" 
              viewBox="0 0 30 30" width="30" height="30" transform="scale(-1 1)">
@@ -74,7 +78,7 @@
   </main>
 
   <!-- Load scripts -->
-  <script src="{% static 'clothesshop/js/scripts.js' %}"></script>
+  <script src="{% static 'clothesshop/js/Scripts.js' %}"></script>
   {% block scripts %}{% endblock %}
 
 </body>

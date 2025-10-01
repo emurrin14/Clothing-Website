@@ -24,7 +24,6 @@
   top: 0;
   background: white;
   display: flex;
-  justify-content: space-between; /* left, center, right */
   align-items: center;
   padding: 0rem 1rem 0rem 1rem;
   z-index: 2000;
@@ -32,26 +31,24 @@
 }
 
 /* Title centered */
-.header .title {
-  max-width: 300px;
-  height: auto;
-}
-
-/* Right icons */
-.header .icons-right {
-  display: flex;
+.header .header-group {
+  display:flex;
   align-items: center;
-  gap: 1rem;
-  justify-content: flex-end;
 }
 
+.header .header-group.center{
+  margin-left:auto;
+  justify-content: center; /* Ensure title is centered within its group */
+}
 
+.header .header-group.right {
+  margin-left: auto;
+  gap: 1rem;
+}
 /* Hamburger bars */
 .hamburger-menu {
   cursor: pointer;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 25px;
   width: 30px;
   position: relative;
@@ -228,6 +225,21 @@ width:auto
   cursor: pointer;
 }
 
+.add-to-cart-form {
+  margin-top: 1.5rem;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-family: "Oswald", sans-serif;
+  background-color: black;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
 /* END MENU STYLES */
 
 /* START TOGGLEABLE SIDEBAR MENU */
@@ -272,3 +284,59 @@ width:auto
     height: 24rem;
     width: 18rem;
 }
+/* END PROFILE SINGUP PAGE */
+
+/* START CART STYLES */
+.yourshoppingcart{ /* CENTERED TEXT */
+  width: 100%;
+  font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.cart-container{
+  margin: 0rem 8rem 0rem 8rem
+}
+.cart-contents{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cart-item-image{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+.cart-item-details{
+  display: flex;
+  flex-direction: column;
+}
+.carttotal{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+.remove-item-btn{
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.minus-button-disabled{
+  color: black;`
+  border: none;
+  cursor: not-allowed;
+}
+.plus-btn{
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+/* END CART STYLES */
