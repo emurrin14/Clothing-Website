@@ -59,3 +59,6 @@ def view_cart(request):
         'cart': cart
     }
     return render(request, 'clothesshop/cart_detail.html', context)
+
+def profile(request):
+    return render(request, "clothesshop/Profiles.html")

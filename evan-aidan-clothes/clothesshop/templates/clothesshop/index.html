@@ -1,117 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'clothesshop/css/websitestylesheet.css' %}">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-  
-<title>Clothesshop - All Listings</title>
+{% extends "clothesshop/base.html" %}
+{% load static %}
 
-  <style>
-   .content,figcaption {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-}
-    html,body{height:100%;margin:0;}
-    .wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem}
-  </style>
+{% block title %}Clothesshop - All Listings{% endblock %}
 
-</head>
-<body class="content">
-  
-  <!--still topbar-->
-<div class="topbar1">
-  <div class="topbar1textleft">socials</div>
-  <div class="topbar1textcenter">24 Hour Sale!!!</div>
-</div>
-
-    <!-- START HAMBURGER MENU -->
-<header id="dynamic-header" class="header">
-
-  <!-- Left: Hamburger -->
-  <div class="hamburger-menu menu-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Center: Title -->
-  <a href="">
-    <img class="title" src="../../../media/images/title.jpg" alt="title">
-  </a>
-
-  <!-- Right: Cart + Profile -->
-  <div class="icons-right">
-    <a href="Cart.html">
-      <svg fill="none" stroke="#000" stroke-width="2" xmlns="http://www.w3.org/2000/svg" 
-           viewBox="0 0 30 30" width="30" height="30" transform="scale(-1 1)">
-        <path fill="#000" d="m22.313 19.2 3.671-14.375H30V2.566h-5.771l-.866 3.388L0 5.938 2.484 19.2zm.474-10.986-2.229 8.727H4.36L2.722 8.199z" stroke="none"/>
-        <circle cx="5.6" cy="23.8" r="2.5"/>
-        <circle cx="19.2" cy="23.8" r="2.5"/>
-      </svg>
-    </a>
-
-    <a href="Profiles.html">
-      <svg class="profileicon" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <path stroke="#000" stroke-width="1.406" d="M29.063 15A14.063 14.063 0 0 1 15 29.063 14.063 14.063 0 0 1 .938 15a14.063 14.063 0 0 1 28.125 0z"/>
-        <path stroke="#000" stroke-width="1.406" d="M20.625 10.313A5.625 5.625 0 0 1 15 15.938a5.625 5.625 0 0 1-5.625-5.625 5.625 5.625 0 0 1 11.25 0z"/>
-        <path d="M5.625 25.313c0-4.688 3.75-9.375 9.375-9.375s9.375 4.688 9.375 9.375" stroke="#000" stroke-width="1.406" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-  </div>
-
-</header>
-
-
-
-<!-- START TOGGLEABLE SIDEBAR MENU -->
-<div class="sidebar">
-    <a href="">Home</a>
-    <a href="product.html">Southpole Pants</a>
-    <a href="trackpantspage.html">Track Pants</a>
-    <a href="jortspage.html">Jorts</a>
-    <a href="aboutuspage.html">About Us</a>
-</div>
-
+{% block content %}
   <!-- image content -->
-  <main class="wrap imgcontent">
+  <div class="wrap imgcontent">
     <section class="grid" aria-label="Gallery of images">
-  {% if listings %}
-  {% for listing in listings %}
+      {% if listings %}
+      {% for listing in listings %}
 
       <figure class="card">
           <a href="{% url 'listing' listing.id %}" class="product-title">
-      <div class="hover-image">
-        {% if listing.primary_image %}
-        <img class="hover-main" src="{{ listing.primary_image.url }}" alt="{{ listing.title }}" loading="lazy">
-        <img class="hover-alt" src="{{ listing.secondary_image.url }}" alt="{{ listing.title }}" loading="lazy">
-        {% else %}
-        <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
-        {% endif %}
-      </div>
-        <figcaption>
-          <span>{{ listing.title }}</span>
-        </figcaption>
+          <div class="hover-image">
+            {% if listing.primary_image %}
+            <img class="hover-main" src="{{ listing.primary_image.url }}" alt="{{ listing.title }}" loading="lazy">
+            <img class="hover-alt" src="{{ listing.secondary_image.url }}" alt="{{ listing.title }}" loading="lazy">
+            {% else %}
+            <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+            {% endif %}
+          </div>
+            <figcaption>
+              <span>{{ listing.title }}</span>
+            </figcaption>
           </a>
         </figure>
-  {% endfor %}
+      {% endfor %}
 
-  {% else %}
-  <p class="no-listings">No listings found at the moment.</p>
-  {% endif %}
+      {% else %}
+      <p class="no-listings">No listings found at the moment.</p>
+      {% endif %}
 
     </section>
-  </main>
-
-  <!-- Load migrated scripts from static files -->
-  <script src="{% static 'clothesshop/js/scripts.js' %}"></script>
-  <!-- Load app-specific JS via Django static files -->
-  <script src="{% static 'clothesshop/js/index.js' %}"></script>
-
-</body>
-</html>
+  </div>
+{% endblock %}

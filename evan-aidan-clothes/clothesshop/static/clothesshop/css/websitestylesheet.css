@@ -9,6 +9,13 @@
 .imgcontent{
   margin-top: 40px;
 }
+   .content,figcaption {
+      font-family: "Oswald", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+    }
+    html,body{height:100%;margin:0;}
+    .wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem}
 
 /* START STICKY HEADER */
 /* Header container */

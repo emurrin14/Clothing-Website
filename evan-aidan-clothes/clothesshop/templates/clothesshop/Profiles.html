@@ -2,45 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <link rel="stylesheet" href="Profilesstylesheet.css">
-     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-  .content {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-  }
-</style>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <title>Login or Sign Up</title>
+  <link rel="stylesheet" href="{% static 'clothesshop/css/Profilesstylesheet.css' %}">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
-<body class="content">
+
+<body>
   <div class="login_form">
     <!-- Login form container -->
     <form action="#">
-      <a href="Index.html"> 
-        <img id="Titlepic" src="../Pictures/title.jpg" alt="Title">
-      </a>
+      <!-- Note: This title image will not be styled by the main stylesheet anymore -->
+      <a href="{% url 'index' %}"><img class="title" src="{% static 'images/title.jpg' %}" alt="title"></a>
       <h3>Log in with</h3>
 
       <div class="login_option">
         <!-- Google button -->
         <div class="option">
           <a href="#">
-            <img src="../Pictures/google.png" alt="Google" />
+            <img src="{% static 'images/google.png' %}" alt="Google" />
             <span>Google</span>
           </a>
         </div>
 
         <!-- Apple button -->
         <div class="option">
-          <a href="#">
-            <img src="../Pictures/apple.png" alt="Apple" />
+          <a href="#"> 
+            <img src="{% static 'images/apple.png' %}" alt="Apple" />
             <span>Apple</span>
           </a>
         </div>
@@ -55,7 +44,6 @@
       <div class="input_box">
         <label for="email">Email</label>
         <input type="email" id="email" spellcheck="false" placeholder="Enter email address" required />
-
       </div>
 
       <!-- Password input box -->
@@ -76,18 +64,21 @@
     </form>
   </div>
 
-<script>
-      const toggle = document.querySelector(".toggle"),
-            input = document.querySelector('input[type="password"]');
-            toggle.addEventListener("click", () => {
-    if (input.type === "password") {
-        input.type = "text";
-        toggle.classList.replace("uil-eye-slash", "uil-eye");
-    } else {
-        input.type = "password";
-        toggle.classList.replace("uil-eye", "uil-eye-slash");
+  <!-- Page-specific JavaScript for the password toggle -->
+  <script> 
+    const toggle = document.querySelector(".toggle"),
+          input = document.querySelector('input[type="password"]');
+    if (toggle && input) {
+      toggle.addEventListener("click", () => {
+        if (input.type === "password") {
+            input.type = "text";
+            toggle.classList.replace("uil-eye-slash", "uil-eye");
+        } else {
+            input.type = "password";
+            toggle.classList.replace("uil-eye", "uil-eye-slash");
+        }
+      });
     }
-});
-</script>
+  </script>
 </body>
 </html>
