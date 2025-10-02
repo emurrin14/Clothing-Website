@@ -6,11 +6,14 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   }
+
      .content,figcaption {
-      font-family: "Oswald", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 400;
-    }
+ font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+    
     html,body{height:100%;margin:0;}
     .wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem}
 
@@ -34,7 +37,7 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.login_form img#Titlepic {
+.login_form .title {
   display: block;
   margin-left: auto;
   margin-right: auto;

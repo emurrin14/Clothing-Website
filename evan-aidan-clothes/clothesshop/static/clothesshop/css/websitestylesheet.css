@@ -5,50 +5,65 @@
       --gap: 1rem;
       --max-width: 600px;
     }
+.content{
+  margin: 0px;  
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
     
 .imgcontent{
   margin-top: 40px;
 }
-   .content,figcaption {
-      font-family: "Oswald", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 400;
-    }
-    html,body{height:100%;margin:0;}
-    .wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem}
+
 
 /* START STICKY HEADER */
-/* Header container */
 .header {
   position: sticky;
-  top: 0;
+  top: 0px;
   background: white;
   display: flex;
   align-items: center;
   padding: 0rem 1rem 0rem 1rem;
   z-index: 2000;
-  height: 80px; /* adjust if needed */
+  height: 80px;
+  border-bottom: #ccc .1rem solid;
 }
 
-/* Title centered */
 .header .header-group {
+  position:absolute;
   display:flex;
   align-items: center;
+  z-index: 4000;
 }
 
 .header .header-group.center{
-  margin-left:auto;
-  justify-content: center; /* Ensure title is centered within its group */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .header .header-group.right {
-  margin-left: auto;
+  right: 10px;
   gap: 1rem;
 }
+
+
 /* Hamburger bars */
 .hamburger-menu {
   cursor: pointer;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 25px;
   width: 30px;
   position: relative;
@@ -233,7 +248,6 @@ width:auto
   width: 100%;
   padding: 1rem;
   font-size: 1.2rem;
-  font-family: "Oswald", sans-serif;
   background-color: black;
   color: white;
   border: none;
@@ -270,6 +284,7 @@ width:auto
 }
 /* When the sidebar is active (visible) */
 .sidebar.active{
+  position:fixed;
   left: 0;
   z-index: 1001;
 }
@@ -283,8 +298,7 @@ width:auto
     justify-content: center;
     height: 24rem;
     width: 18rem;
-}
-/* END PROFILE SINGUP PAGE */
+}/* END PROFILE SINGUP PAGE */
 
 /* START CART STYLES */
 .yourshoppingcart{ /* CENTERED TEXT */
@@ -292,17 +306,22 @@ width:auto
   font-size: 2rem;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .cart-container{
-  margin: 0rem 8rem 0rem 8rem
+    margin: 0rem 14rem 0rem 14rem
+}
+.cart-container ul{
+  padding:0;
+  margin:0;
 }
 .cart-contents{
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .cart-item-image{
   width: 100px;
@@ -326,8 +345,20 @@ width:auto
   border: none;
   cursor: pointer;
 }
-.minus-button-disabled{
-  color: black;`
+.quantity-controls{
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 3rem;
+  gap: 2rem;
+}
+.quantity-controls a{
+  text-decoration: none;
+  color: black;
+}
+
+.disabled{
+  color: black;
   border: none;
   cursor: not-allowed;
 }
@@ -337,6 +368,70 @@ width:auto
   cursor: pointer;
 }
 
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.username {
+  font-size: 1rem;
+  color: black;
+}
+
+.profile-icon-container {
+  cursor: pointer;
+}
+
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.profile-dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.profile-dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-dropdown-content.show {
+  display: block;
+}
+
+.logout-form {
+  margin: 0;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  margin: 0;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  cursor: pointer;
+}
 
 
 /* END CART STYLES */

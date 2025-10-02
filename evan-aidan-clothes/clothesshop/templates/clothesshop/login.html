@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <title>Login or Sign Up</title>
+  <link rel="stylesheet" href="{% static 'clothesshop/css/Profilesstylesheet.css' %}">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body class="content">
+  <div class="login_form">
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      <a href="{% url 'index' %}">
+        <img class="title" src="{% static 'images/title.jpg' %}" alt="title">
+      </a>
+
+      <h3>LOG IN WITH</h3>
+
+      {% if form.non_field_errors %}
+        <div class="form-errors" style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px; margin: 20px 0; text-align: center;">
+          {% for error in form.non_field_errors %}
+            <p style="margin: 0;">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="login_option">
+        <div class="option">
+          <a href="#">
+            <img src="{% static 'images/google.png' %}" alt="Google" />
+            <span>GOOGLE</span>
+          </a>
+        </div>
+        <div class="option">
+          <a href="#"> 
+            <img src="{% static 'images/apple.png' %}" alt="Apple" />
+            <span>APPLE</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="separator">
+        <span>OR</span>
+      </p>
+
+      <!-- Username field -->
+      <div class="input_box">
+        <label for="username">USERNAME</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+     </div>
+
+      <!-- Password field -->
+      <div class="input_box">
+        <div class="password_title">
+          <label for="password">PASSWORD</label>
+          <a href="#">FORGOT PASSWORD?</a>
+        </div>
+
+        {{ form.password }}
+        <i class="uil uil-eye-slash toggle"></i>
+        {% for error in form.password.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <button type="submit">Log In</button>
+
+      <p class="sign_up">DON'T HAVE AN ACCOUNT? <a href="{% url 'register' %}">SIGN UP</a></p>
+    </form>
+  </div>
+
+  <script> 
+    const loginPasswordBox = document.querySelector('.input_box .toggle')?.closest('.input_box');
+    if (loginPasswordBox) {
+        const toggle = loginPasswordBox.querySelector('.toggle');
+        const input = loginPasswordBox.querySelector('input');
+
+        toggle.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+            toggle.classList.toggle("uil-eye-slash", !isPassword);
+            toggle.classList.toggle("uil-eye", isPassword);
+        });
+    }
+  </script>
+</body>
+</html>

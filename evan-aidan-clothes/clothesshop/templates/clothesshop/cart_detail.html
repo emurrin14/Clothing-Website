@@ -5,41 +5,41 @@
 
 {% block content %}
 <body>
-    <h1 class="yourshoppingcart">Your Cart</h1>
-
 {% if not cart.items.all %}
-    <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem;">Your cart is empty.</p>
+    <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem;">YOUR CART IS EMPTY.</p>
 {% else %}
 <div class="cart-container">
+<h1 class="yourshoppingcart">YOUR CART</h1>
+<hr>
   <ul>
     {% for item in cart.items.all %}
         <li class="cart-contents">
             {% if item.product.primary_image %}
                 <img src="{{ item.product.primary_image.url }}" alt="{{ item.product.title }}" class="cart-item-image">
                 {% else %}
-                <div class="no-image-placeholder">No Image</div>
-            {% endif %}
-        <div class="cart-item-details">
-              {{ item.quantity }} x {{ item.product.title }} - ${{ item.subtotal }} 
-
-              <a class="remove-item-btn" href="{% url 'remove_from_cart' item.id %}" ">
-                &times; Remove
-        </div>
-            </a>
+                <div class="no-image-placeholder">NO IMAGE</div>
+                {% endif %}
+                    <div class="cart-item-details">
+                          {{ item.product.title }} - ${{ item.subtotal }} 
+                    </div>
             <div class="quantity-controls">
                 <a class="plus-button" href="{% url 'add_to_cart' item.product.id %}">+</a>
+                    <span class="quantity-value">{{ item.quantity }}</span>
                 
                 {% if item.quantity > 1 %}
-                <a class="minus-button" href="{% url 'subtract_from_cart' item.id %}">-</a>
-                {% else %}
-                <a class="minus-button disabled" href="#">-</a>
-                {% endif %}
+                    <a class="minus-button" href="{% url 'subtract_from_cart' item.id %}">-</a>
+                    {% else %}
+                    <a class="minus-button disabled">-</a>
+                    {% endif %}
+                        <a class="remove-item-btn" href="{% url 'remove_from_cart' item.id %}">
+                           <svg width="20" height="20" viewBox="0 0 0.4 0.4" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 0.075h0.075v0.025h-0.025v0.225l-0.025 0.025H0.1l-0.025 -0.025V0.1H0.05V0.075h0.075V0.05a0.025 0.025 0 0 1 0.025 -0.025h0.075a0.025 0.025 0 0 1 0.025 0.025zM0.225 0.05H0.15v0.025h0.075zM0.1 0.325h0.175V0.1H0.1zm0.05 -0.2H0.125v0.175h0.025zm0.025 0h0.025v0.175H0.175zm0.05 0h0.025v0.175H0.225z"/></svg>
+                        </a>
             </div>
         </li>
     {% endfor %}
   </ul>
 </div>
-<h3 class="carttotal">Total: ${{ cart.total_price }}</h3>
+<h3 class="carttotal">SUBTOTAL: ${{ cart.total_price }}</h3>
 {% endif %}
 {% endblock %}
 

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{% static 'clothesshop/css/Profilesstylesheet.css' %}">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body class="content">
+  <div class="login_form">
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      <a href="{% url 'index' %}">
+        <img class="title" src="{% static 'images/title.jpg' %}" alt="title">
+      </a>
+
+      <h3>CREATE AN ACCOUNT</h3>
+
+      {% if form.non_field_errors %}
+        <div class="form-errors" style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px; margin: 20px 0; text-align: center;">
+          {% for error in form.non_field_errors %}
+            <p style="margin: 0;">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Username field -->
+      <div class="input_box">
+        <label for="{{ form.username.id_for_label }}">USERNAME</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <!-- Email field -->
+      <div class="input_box">
+        <label for="{{ form.email.id_for_label }}">EMAIL</label>
+        {{ form.email }}
+        {% for error in form.email.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <!-- Password field -->
+      <div class="input_box" id="password-box">
+        <label for="{{ form.password1.id_for_label }}">PASSWORD</label>
+        {{ form.password1 }}
+        <i class="uil uil-eye-slash toggle"></i>
+        {% for error in form.password1.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <!-- Password confirmation field -->
+      <div class="input_box">
+        <label for="{{ form.password2.id_for_label }}">CONFIRM PASSWORD</label>
+        {{ form.password2 }}
+        <i class="uil uil-eye-slash toggle"></i>
+        {% for error in form.password2.errors %}
+          <p class="error" style="color: #721c24; font-size: 0.9rem; margin-top: -15px;">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <button type="submit">Sign Up</button>
+
+      <p class="sign_up">ALREADY HAVE AN ACCOUNT? <a href="{% url 'login' %}">LOG IN</a></p>
+    </form>
+  </div>
+
+  <script>
+    // This script will handle all password toggles on the page
+    document.querySelectorAll('.input_box .toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const inputBox = toggle.closest('.input_box');
+        const input = inputBox.querySelector('input');
+
+        if (input) {
+          const isPassword = input.type === 'password';
+          input.type = isPassword ? 'text' : 'password';
+          toggle.classList.toggle('uil-eye-slash', !isPassword);
+          toggle.classList.toggle('uil-eye', isPassword);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
