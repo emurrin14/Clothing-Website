@@ -9,6 +9,7 @@ class Listing(models.Model):
     secondary_image = models.ImageField(upload_to="images/", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=10, default="active")
+    size = models.CharField(max_length=20, blank=True, null=True)
 
 class Sale(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
@@ -45,9 +46,11 @@ class CartItem(models.Model):
     product = models.ForeignKey(Listing, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
+    size = models.CharField(max_length=20, blank=True, null=True)
+
 
     class Meta:
-        unique_together = ("cart", "product")
+        unique_together = ("cart", "product", "size")
 
     def __str__(self):
         return f"{self.quantity} x {self.product.title} in Cart {self.cart.pk}"

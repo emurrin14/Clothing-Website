@@ -144,3 +144,12 @@ def activate(request, uidb64, token):
         return redirect('index')
     else:
         return render(request, 'clothesshop/account_activation_invalid.html')
+
+def instagram(request):
+    return redirect("https://www.instagram.com")
+
+def tiktok(request):
+    return redirect("https://www.tiktok.com")
+
+def discord(request):
+    return redirect("https://discord.gg")

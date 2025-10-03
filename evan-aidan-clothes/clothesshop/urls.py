@@ -14,4 +14,8 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path('register/', views.register, name='register'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
+    path("instagram/", views.instagram, name="instagram"),
+    path("tiktok/", views.tiktok, name="tiktok"),
+    path("discord/", views.discord, name="discord")
+
 ]
