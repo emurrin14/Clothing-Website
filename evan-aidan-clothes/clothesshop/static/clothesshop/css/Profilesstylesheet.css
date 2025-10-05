@@ -41,7 +41,8 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: auto;
+  height: 70px;
+  width: auto;
 }
 .login_form h3 {
     font-size: 20px;

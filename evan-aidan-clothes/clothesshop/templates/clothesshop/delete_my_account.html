@@ -1,0 +1,35 @@
+{% extends "clothesshop/base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-pages">
+        <a>
+            <span>Orders</span>
+        </a>
+        <a>
+            <span>Settings</span>
+        </a>
+        <a>
+            <span>Addresses</span>
+        </a>
+        <a>
+            <span>Payment Methods</span>
+        </a>
+        <a href="{% url 'delete_my_account' %}">
+            <span>Delete Account</span>
+        </a>
+    </div>
+    <div>
+        <form action="{% url 'delete_account' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete My Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

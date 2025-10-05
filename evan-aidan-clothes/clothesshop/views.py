@@ -3,6 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import LoginForm, RegistrationForm
 from .models import Listing, Cart, CartItem
 from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth.models import User 
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -47,11 +50,15 @@ def add_to_cart(request, listing_id):
     """View to add a listing to the cart."""
     product = get_object_or_404(Listing, pk=listing_id)
     cart = _get_cart(request)
+    # Assuming size is passed in the POST request.
+    # The listing_detail.html template will need a size selector.
+    size = request.POST.get('size', None)
 
     # Get or create the cart item
     cart_item, created = CartItem.objects.get_or_create(
         cart=cart,
         product=product,
+        size=size,
     )
 
     # If the item was already in the cart, increment its quantity
@@ -92,6 +99,8 @@ def subtract_from_cart(request, item_id):
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
             cart_item.save()
+        else:
+            cart_item.delete()
 
     return redirect('view_cart')
 
@@ -144,6 +153,22 @@ def activate(request, uidb64, token):
         return redirect('index')
     else:
         return render(request, 'clothesshop/account_activation_invalid.html')
+    
+
+def delete_my_account(request):
+    return render(request, 'clothesshop/delete_my_account.html')
+
+
+@login_required
+def delete_user(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        # Redirect to a login page or homepage after deletion
+        return redirect('index') 
+    # Render a confirmation page for GET requests
+    return render(request, 'delete_account_confirm.html')
+
 
 def instagram(request):
     return redirect("https://www.instagram.com")
@@ -153,3 +178,6 @@ def tiktok(request):
 
 def discord(request):
     return redirect("https://discord.gg")
+
+def about(request):
+    return render(request, "clothesshop/about.html")

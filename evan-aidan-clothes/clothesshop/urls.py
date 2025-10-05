@@ -16,6 +16,8 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path("instagram/", views.instagram, name="instagram"),
     path("tiktok/", views.tiktok, name="tiktok"),
-    path("discord/", views.discord, name="discord")
-
+    path("discord/", views.discord, name="discord"),
+    path("about/", views.about, name="about"),
+    path("delete_my_account/", views.delete_my_account, name="delete_my_account"),
+    path('delete_account/', views.delete_user, name='delete_account'),
 ]

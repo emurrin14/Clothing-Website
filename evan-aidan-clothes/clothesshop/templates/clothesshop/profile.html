@@ -1,13 +1,37 @@
 {% extends "clothesshop/base.html" %}
+{% load static %}
 
 {% block title %}Profile{% endblock %}
+{% block extra_head %}
+    <style>
+        .profile-pages .profile-text{
+            text-decoration: underline;
+            text-decoration-thickness: 12%;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
 <div class="profile-container">
     <div class="profile-pages">
-        <span>Orders</span>
-        <span>Settings</span>
-        <span>Delete Account</span>
+        <a>
+            <span class="profile-text">PROFILE</span>
+        </a>
+        <a>
+            <span>ORDERS</span>
+        </a>
+        <a>
+            <span>SETTINGS</span>
+        </a>
+        <a>
+            <span>ADRESSES</span>
+        </a>
+        <a>
+            <span>PAYMENT METHODS</span>
+        </a>
+        <a href="{% url 'delete_my_account' %}">
+            <span>DELETE ACCOUNT</span>
+        </a>
     </div>
 </div>
 {% endblock %}
