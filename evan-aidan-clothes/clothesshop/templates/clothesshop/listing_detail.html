@@ -10,15 +10,11 @@
 
       <figure class="card2">
         <div>
-          {% if listing.primary_image %}
-          <img src="{{ listing.primary_image.url }}" alt="Primary image for {{ listing.title }}">
-          {% else %}
-          <div class="no-image">No Primary Image</div>
-          {% endif %}
-
-          {% if listing.secondary_image %}
-          <img src="{{ listing.secondary_image.url }}" alt="Secondary image for {{ listing.title }}">
-          {% endif %}
+          {% for image in listing.images.all %}
+            <img src="{{ image.image.url }}" alt="Image for {{ listing.title }}">
+          {% empty %}
+            <div class="no-image">No Images Available</div>
+          {% endfor %}
         </div>
       </figure>
 
@@ -31,6 +27,8 @@
       <!-- Add to Cart Form -->
       <form action="{% url 'add_to_cart' listing.id %}" method="post" class="add-to-cart-form">
         {% csrf_token %}
+
+
         {% if listing.stock_items.all %}
           <div class="size-selector">
             <label for="size">Size:</label>
@@ -42,6 +40,8 @@
             </select>
           </div>
         {% endif %}
+
+
         <button type="submit" class="button add-to-cart-btn">Add to Cart</button>
       </form>
     </div>

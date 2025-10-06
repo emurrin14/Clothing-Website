@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import Listing, Cart, CartItem, Sale, Stock
+from .models import Listing, ListingImage, Cart, CartItem, Sale, Stock
 
 
-# Register your models here.
-from .models import Listing, Sale, Cart, CartItem
+class ListingImageInline(admin.TabularInline):
+    model = ListingImage
+    extra = 1  # Number of extra empty forms to display
 
-admin.site.register(Listing)
+class ListingAdmin(admin.ModelAdmin):
+    inlines = [ListingImageInline]
+
+
+admin.site.register(Listing, ListingAdmin)
 admin.site.register(Sale)
 admin.site.register(Cart)
 admin.site.register(CartItem)
-admin.site.register(Stock) # Add this line
+admin.site.register(Stock)
+admin.site.register(ListingImage)

@@ -21,12 +21,17 @@
 
       <figure class="card">
           <a href="{% url 'listing' listing.id %}" class="product-title">
-          <div class="hover-image">
-            {% if listing.primary_image %}
-            <img class="hover-main" src="{{ listing.primary_image.url }}" alt="{{ listing.title }}" loading="lazy">
-            <img class="hover-alt" src="{{ listing.secondary_image.url }}" alt="{{ listing.title }}" loading="lazy">
-            {% else %}
-            <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+          {% with images=listing.images.all %}
+            <div class="hover-image">
+              {% if images %}
+                <img class="hover-main" src="{{ images.0.image.url }}" alt="{{ listing.title }}" loading="lazy">
+                {% if images|length > 1 %}
+                  <img class="hover-alt" src="{{ images.1.image.url }}" alt="{{ listing.title }}" loading="lazy">
+                {% else %}
+                  <img class="hover-alt" src="{{ images.0.image.url }}" alt="{{ listing.title }}" loading="lazy">
+                {% endif %}
+              {% else %}
+                <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
             {% endif %}
           </div>
             <figcaption>
@@ -34,6 +39,7 @@
             </figcaption>
           </a>
         </figure>
+      {% endwith %}
       {% endfor %}
 
       {% else %}
