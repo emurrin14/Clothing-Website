@@ -119,3 +119,45 @@ function switchText() {
   }
 
   setInterval(switchText, 8000);
+
+  //image product gallery button switcher
+  function changeprimaryimg(url) {
+    document.getElementById('primaryimg').src = url;
+  }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const primaryImage = document.getElementById('primaryimg');
+    const leftArrow = document.getElementById('leftarrowbtn');
+    const rightArrow = document.getElementById('rightarrowbtn');
+    const thumbnails = document.querySelectorAll('.card2 img');
+
+    // Only run this script if all the necessary elements are on the page
+    if (!primaryImage || !leftArrow || !rightArrow || thumbnails.length === 0) {
+        return;
+    }
+
+    const imageUrls = Array.from(thumbnails).map(thumb => thumb.src);
+
+    function updateImage(direction) {
+        const currentSrc = primaryImage.src;
+        let currentIndex = imageUrls.findIndex(url => url === currentSrc);
+
+        if (currentIndex === -1) { // Fallback if current image not in thumbnails
+            currentIndex = 0;
+        }
+
+        let nextIndex;
+        if (direction === 'next') {
+            nextIndex = (currentIndex + 1) % imageUrls.length;
+        } else {
+            // The modulo operator handles wrapping around from 0 to the end
+            nextIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+        }
+
+        primaryImage.src = imageUrls[nextIndex];
+    }
+
+    leftArrow.addEventListener('click', () => updateImage('prev'));
+    rightArrow.addEventListener('click', () => updateImage('next'));
+});

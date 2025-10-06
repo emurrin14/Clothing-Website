@@ -6,19 +6,29 @@
 {% block content %}
   <!-- product img grid -->
   <div class="center-row-flex">
-    <section class="grid2" aria-label="Gallery of images">
-
-      <figure class="card2">
-        <div>
+    <div class="image-column">
+      <div class="primaryimage">
+        <svg class="Leftarrow" id="leftarrowbtn" height="26" viewBox="0 0 15 26" width="15" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path fill="#231F20" d="m12.885.58 2.084 2.084L4.133 13.5l10.836 10.836-2.084 2.084L2.049 15.584-.035 13.5z"/></svg>
+        <svg class="rightarrow" id="rightarrowbtn" height="26" viewBox="0 0 15 26" width="15" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path fill="#231F20" d="M2.019.58-.035 2.634l10.681 10.682L-.035 23.997l2.054 2.055 12.736-12.736z"/></svg>
+          {% with first_image=listing.images.all.first %}
+          {% if first_image %}
+            <img class="primary-image" id="primaryimg" src="{{ first_image.image.url }}" alt="{{ listing.title }}" loading="lazy">
+          {% endif %}
+        {% endwith %}
+      </div>
+        <section class="grid2" aria-label="Gallery of images">
           {% for image in listing.images.all %}
-            <img src="{{ image.image.url }}" alt="Image for {{ listing.title }}">
+            <figure class="card2">
+              <div>
+                <img src="{{ image.image.url }}" alt="{{ listing.title }}" onclick="changeprimaryimg('{{ image.image.url }}')">
+              </div>
+            </figure>
           {% empty %}
             <div class="no-image">No Images Available</div>
           {% endfor %}
-        </div>
-      </figure>
-
-    </section>
+        </section>
+    </div>
+    
     <div class="productinfo">
       <div class="product-title prod-title">{{ listing.title }}</div>
       <div class="price">${{ listing.price }}</div>

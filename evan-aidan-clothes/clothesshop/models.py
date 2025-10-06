@@ -18,9 +18,15 @@ class ListingImage(models.Model):
     """An image associated with a listing."""
     listing = models.ForeignKey(Listing, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
+    order = models.PositiveIntegerField(default=0, help_text="Set the display order. 0 will be the primary image.")
 
     def __str__(self):
         return f"Image for {self.listing.title}"
+
+    class Meta:
+        """Defines the default ordering for image queries."""
+        ordering = ['order']
+
 
 class Sale(models.Model):
     """Represents a site-wide sale event."""

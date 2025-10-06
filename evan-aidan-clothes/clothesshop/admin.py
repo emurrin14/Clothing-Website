@@ -4,6 +4,7 @@ from .models import Listing, ListingImage, Cart, CartItem, Sale, Stock
 
 class ListingImageInline(admin.TabularInline):
     model = ListingImage
+    fields = ('image', 'order')
     extra = 1  # Number of extra empty forms to display
 
 class ListingAdmin(admin.ModelAdmin):
