@@ -9,15 +9,29 @@ class Listing(models.Model):
     secondary_image = models.ImageField(upload_to="images/", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=10, default="active")
-    size = models.CharField(max_length=20, blank=True, null=True)
 
 class Sale(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    """Represents a site-wide sale event."""
     name = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    status = models.CharField(max_length=10, default="pending")
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} (Active: {self.is_active})"
+    
+class Stock(models.Model):
+    """Manages stock for a specific size of a listing."""
+    listing = models.ForeignKey(Listing, related_name='stock_items', on_delete=models.CASCADE)
+    size = models.CharField(max_length=20)
+    quantity = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('listing', 'size')
+
+    def __str__(self):
+        return f"{self.listing.title} - Size: {self.size} ({self.quantity} in stock)"
+
 
 class Cart(models.Model):
     user = models.ForeignKey(

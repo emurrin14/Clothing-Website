@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import LoginForm, RegistrationForm
-from .models import Listing, Cart, CartItem
+from .models import Listing, Cart, CartItem, Stock
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.models import User 
 from django.contrib.auth.decorators import login_required
@@ -48,23 +48,37 @@ def _get_cart(request):
 
 def add_to_cart(request, listing_id):
     """View to add a listing to the cart."""
-    product = get_object_or_404(Listing, pk=listing_id)
+    listing = get_object_or_404(Listing, pk=listing_id)
     cart = _get_cart(request)
-    # Assuming size is passed in the POST request.
-    # The listing_detail.html template will need a size selector.
-    size = request.POST.get('size', None)
+    size = request.POST.get('size')
 
-    # Get or create the cart item
-    cart_item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        product=product,
-        size=size,
-    )
+    if not size:
+        messages.error(request, "Please select a size.")
+        return redirect('listing', listing_id=listing.id)
 
-    # If the item was already in the cart, increment its quantity
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+    # Check for available stock
+    try:
+        stock_item = Stock.objects.get(listing=listing, size=size)
+        if stock_item.quantity > 0:
+            # Get or create the cart item
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart,
+                product=listing,
+                size=size,
+            )
+            if not created:
+                cart_item.quantity += 1
+            cart_item.save()
+            
+            # Decrement stock
+            stock_item.quantity -= 1
+            stock_item.save()
+        else:
+            messages.error(request, f"Sorry, {listing.title} in size {size} is out of stock.")
+            return redirect('listing', listing_id=listing.id)
+    except Stock.DoesNotExist:
+        messages.error(request, "This item is not available in the selected size.")
+        return redirect('listing', listing_id=listing.id)
 
     # Redirect back to the listing detail page
     return redirect('view_cart')
@@ -84,6 +98,14 @@ def remove_from_cart(request, item_id):
 
     # Ensure the item being removed belongs to the current user's cart
     if cart_item.cart == current_cart:
+        # Restore the stock for the removed item
+        try:
+            stock_item = Stock.objects.get(listing=cart_item.product, size=cart_item.size)
+            stock_item.quantity += cart_item.quantity
+            stock_item.save()
+        except Stock.DoesNotExist:
+            # Handle case where stock item might not exist, though it should
+            pass
         cart_item.delete()
 
     # Redirect back to the cart page
@@ -97,10 +119,19 @@ def subtract_from_cart(request, item_id):
     # Ensure the item belongs to the current user's cart
     if cart_item.cart == current_cart:
         if cart_item.quantity > 1:
+            # Restore one item to stock
+            try:
+                stock_item = Stock.objects.get(listing=cart_item.product, size=cart_item.size)
+                stock_item.quantity += 1
+                stock_item.save()
+            except Stock.DoesNotExist:
+                pass
             cart_item.quantity -= 1
             cart_item.save()
         else:
-            cart_item.delete()
+            # If quantity is 1, just call the remove_from_cart view which handles
+            # stock restoration and deletion.
+            return remove_from_cart(request, item_id)
 
     return redirect('view_cart')
 
@@ -161,13 +192,14 @@ def delete_my_account(request):
 
 @login_required
 def delete_user(request):
+    if request.user.is_superuser:
+        messages.error(request, 'Superusers cannot delete their accounts.')
+        return redirect('delete_my_account')
+    
     if request.method == 'POST':
         user = request.user
         user.delete()
-        # Redirect to a login page or homepage after deletion
         return redirect('index') 
-    # Render a confirmation page for GET requests
-    return render(request, 'delete_account_confirm.html')
 
 
 def instagram(request):
@@ -181,3 +213,6 @@ def discord(request):
 
 def about(request):
     return render(request, "clothesshop/about.html")
+
+def orders(request):
+    return render(request, "clothesshop/orders.html")

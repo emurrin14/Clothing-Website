@@ -5,31 +5,31 @@
 
 {% block content %}
 <div class="profile-container">
-    <div class="profile-pages">
-        <a>
-            <span>Orders</span>
-        </a>
-        <a>
-            <span>Settings</span>
-        </a>
-        <a>
-            <span>Addresses</span>
-        </a>
-        <a>
-            <span>Payment Methods</span>
-        </a>
-        <a href="{% url 'delete_my_account' %}">
-            <span>Delete Account</span>
-        </a>
-    </div>
-    <div>
-        <form action="{% url 'delete_account' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Delete My Account</button>
-        </form>
+    {% include "clothesshop/profilesections.html" %}
+    
+    <div class="profile-content">
+        <h2>Delete Your Account</h2>
+        <p>This action is permanent and cannot be undone. All of your data will be removed.</p>
+        
+        <!-- This button now opens the modal -->
+        <button id="openModalBtn" class="delete-account-btn">DELETE ACCOUNT</button>
     </div>
 </div>
-{% endblock %}
 
+<!-- The Modal now contains the form -->
+<div id="Modal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModalBtn">&times;</span>
+    <h2>Are you sure?</h2>
+    <p>This will permanently delete your account.</p>
+    <form action="{% url 'delete_account' %}" method="post" style="margin-top: 1.5rem;">
+        {% csrf_token %}
+        <!-- This button submits the form and deletes the account -->
+        <button type="submit" class="delete-account-btn">Yes, Delete My Account</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
 {% block scripts %}
+<script src="{% static 'clothesshop/js/modaltemplate.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,28 @@
+<head>
+    <style>
+        .profile-pages .profile-text{
+            text-decoration: underline;
+            text-decoration-thickness: 12%;
+        }
+    </style>
+</head>
+<div class="profile-pages">
+    <a href="{% url 'profile' %}">
+        <span {% if request.resolver_match.url_name == 'profile' %}class="profile-text"{% endif %}>PROFILE</span>
+    </a>
+    <a href="{% url 'orders' %}">
+        <span {% if request.resolver_match.url_name == 'orders' %}class="profile-text"{% endif %}>ORDERS</span>
+    </a>
+    <a>
+        <span>SETTINGS</span>
+    </a>
+    <a>
+        <span>ADRESSES</span>
+    </a>
+    <a>
+        <span>PAYMENT METHODS</span>
+    </a>
+    <a href="{% url 'delete_my_account' %}">
+        <span {% if request.resolver_match.url_name == 'delete_my_account' %}class="profile-text"{% endif %}>DELETE ACCOUNT</span>
+    </a>
+</div>

@@ -20,4 +20,6 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("delete_my_account/", views.delete_my_account, name="delete_my_account"),
     path('delete_account/', views.delete_user, name='delete_account'),
+    path('orders/', views.orders, name='orders'),
+
 ]

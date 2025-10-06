@@ -64,3 +64,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+
+// Global timer for sales
+document.addEventListener('DOMContentLoaded', function() {
+    const saleTimerElement = document.getElementById("sale-timer");
+    
+    // Only run the timer if the element and its data attribute exist
+    if (saleTimerElement && saleTimerElement.dataset.targetDate) {
+        const targetDateUTC = new Date(saleTimerElement.dataset.targetDate).getTime();
+        
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDateUTC - now;
+            
+            if (distance <= 0) {
+                clearInterval(timerInterval); // Stop the timer from running unnecessarily
+                saleTimerElement.innerHTML = "EXPIRED";
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Use a template literal for cleaner string formatting
+            saleTimerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    }
+});
+
+
+//animations for topbar text after 5 sec timer
+const textBox = document.getElementById('topbar1textleft');
+const messages = [
+    '<a href="https://discord.gg/vzDV2ddt2V" target="_blank">JOIN OUR DISCORD</a>',
+    '<a href="https://www.tiktok.com/@frayyed.com" target="_blank">FOLLOW OUR TIKTOK</a>',
+    '<a href="https://www.instagram.com" target="_blank">FOLLOW OUR INSTAGRAM</a>'
+];
+
+let current = 0;
+
+function switchText() {
+        textBox.style.opacity = 0;
+
+
+    setTimeout(() => {
+      current = (current + 1) % messages.length;
+      textBox.innerHTML = messages[current];
+      textBox.style.opacity = 1;
+    }, 500);
+  }
+
+  setInterval(switchText, 8000);

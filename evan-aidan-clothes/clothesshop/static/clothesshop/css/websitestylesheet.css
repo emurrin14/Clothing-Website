@@ -6,6 +6,22 @@
       --max-width: 600px;
       --border: 1px solid #ccc;
     }
+
+html {
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+}
+
 .content{
   margin: 0px;  
   font-family: "Montserrat", sans-serif;
@@ -13,6 +29,7 @@
   font-weight: 600;
   font-style: normal;
 }
+
 hr {
   display: block;
   height: 1px;
@@ -124,10 +141,19 @@ hr {
 .topbar1 .topbar1textleft{
 width: auto;
 left: 1rem; 
-position:absolute;
+position: absolute;
+transition: opacity 1s ease-in-out;
+opacity: 1;
+}
+#topbar1textleft a {
+  text-decoration: none;
+  color: white;
 }
 .topbar1 .topbar1textcenter{
 width:auto
+}
+#sale-timer{
+  color: red;
 }
 
 .topbar1 .topbar1textleft,
@@ -490,8 +516,10 @@ width:auto
 .profile-container {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
   margin: 2rem 1rem;
   gap: 2rem;
+  width: max-content;
 }
 .profile-pages{
   display: flex;
@@ -513,6 +541,55 @@ width:auto
 }
 .profile-pages span:hover{
   color: #626cd6;
+}
+/* delete account section */
+.delete-account-btn{
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: black;
+  cursor:pointer;
+  padding: 1rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+/* MODAL */
+.modal[aria-hidden="true"] {
+  display:none !important;
+}
+
+.modal[aria-hidden="false"] {
+  display:block;
+  position: fixed;
+  z-index: 10000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #555;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: red;
 }
 /* END PROFILE PAGE STYLES */
 

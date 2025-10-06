@@ -20,8 +20,19 @@
     <div class="content-wrap">
       <!--still topbar-->
       <div class="topbar1">
-        <div class="topbar1textleft">placeholer</div>
-        <div class="topbar1textcenter">24 HOUR SALE!</div>
+        <div class="topbar1textleft" id="topbar1textleft">
+            <a href="https://discord.gg/vzDV2ddt2V" target="_blank">JOIN OUR DISCORD</a>
+        </div>
+        {% if sale_end_date_iso %}
+          <div class="topbar1textcenter">
+            B-DAY COUNTDOWN PLACEHOLDER! ENDS IN: 
+            <span id="sale-timer" data-target-date="{{ sale_end_date_iso }}"></span>
+          </div>
+          {% else %}
+          <div class="topbar1textcenter">
+              SIGN UP FOR EMAILS!
+          </div>
+          {% endif %}
       </div>
     
       <!-- START HEADER -->
