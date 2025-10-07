@@ -2,6 +2,7 @@ const openBtn = document.getElementById('openModalBtn');
 const modal = document.getElementById('Modal');
 const closeBtn = document.getElementById('closeModalBtn');
 
+
 function showModal() {
   modal.setAttribute('aria-hidden', 'false');
   closeBtn.focus();

@@ -120,44 +120,69 @@ function switchText() {
 
   setInterval(switchText, 8000);
 
-  //image product gallery button switcher
-  function changeprimaryimg(url) {
-    document.getElementById('primaryimg').src = url;
-  }
 
-
+  //functionality for product gallery (with fade animations)
 document.addEventListener('DOMContentLoaded', function() {
     const primaryImage = document.getElementById('primaryimg');
     const leftArrow = document.getElementById('leftarrowbtn');
     const rightArrow = document.getElementById('rightarrowbtn');
     const thumbnails = document.querySelectorAll('.card2 img');
+    
 
-    // Only run this script if all the necessary elements are on the page
-    if (!primaryImage || !leftArrow || !rightArrow || thumbnails.length === 0) {
-        return;
-    }
+    if (!primaryImage || !leftArrow || !rightArrow || thumbnails.length === 0) return;
 
     const imageUrls = Array.from(thumbnails).map(thumb => thumb.src);
 
+    //add outline to thumbnail
+    if (thumbnails.length > 0) {
+        thumbnails[0].classList.add('thumbnail-active');
+    }
+    
+
+        //global fade function
+    function fadeToImage(url) {
+        if (primaryImage.src === url) return;
+
+        primaryImage.style.transition = 'none';
+        primaryImage.style.opacity = 0;
+        primaryImage.offsetWidth;
+
+        //highlight thumbnail
+        thumbnails.forEach(thumb => thumb.classList.remove('thumbnail-active'));
+        const activeThumb = Array.from(thumbnails).find(thumb => thumb.src === url);
+        if (activeThumb) activeThumb.classList.add('thumbnail-active');
+        
+        setTimeout(() => {
+            primaryImage.src = url;
+            primaryImage.style.transition = 'opacity 0.4s ease';
+            primaryImage.style.opacity = 1;
+        }, 20);
+    }
+
+
+    // Arrow functions
     function updateImage(direction) {
         const currentSrc = primaryImage.src;
         let currentIndex = imageUrls.findIndex(url => url === currentSrc);
-
-        if (currentIndex === -1) { // Fallback if current image not in thumbnails
-            currentIndex = 0;
-        }
+        if (currentIndex === -1) currentIndex = 0;
 
         let nextIndex;
         if (direction === 'next') {
             nextIndex = (currentIndex + 1) % imageUrls.length;
         } else {
-            // The modulo operator handles wrapping around from 0 to the end
             nextIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
         }
 
-        primaryImage.src = imageUrls[nextIndex];
+        fadeToImage(imageUrls[nextIndex]);
     }
 
     leftArrow.addEventListener('click', () => updateImage('prev'));
     rightArrow.addEventListener('click', () => updateImage('next'));
+
+    //thumbnails
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            fadeToImage(thumb.src);
+        });
+    });
 });
