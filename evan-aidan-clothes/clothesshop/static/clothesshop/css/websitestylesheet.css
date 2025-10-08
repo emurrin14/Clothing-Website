@@ -232,7 +232,6 @@ width:auto
 
   /* START PRODUCT IMG CONTENT GRID */
   .center-row-flex {
-  border: 1px solid red;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -280,8 +279,7 @@ width:auto
   height: 100%;
 }
 .card2 img.thumbnail-active{
-  border-left :3px solid #007bff;
-  border-right: 3px solid rgba(0, 0, 0, 0)
+  box-shadow: -4px 0 0 0 black;
 }
 .grid2{
   display:flex;
@@ -295,7 +293,6 @@ width:auto
 figure.card2{
   margin:0;
   background:var(--card);
-  overflow:hidden;
   display:flex;
   flex-direction:column;
   width: 6rem;
@@ -318,7 +315,6 @@ figure.card2{
   margin-right: 0rem;
   margin-top: 0rem;
   gap: 1rem;
-  border: 1px solid red;
   background: #fff;
   flex-grow: 1; 
 }
