@@ -21,6 +21,8 @@
                 {% endif %}
                     <div class="cart-item-details">
                           {{ item.product.title }} - ${{ item.subtotal }} 
+                          <br>
+                          <span class="cart-item-size">SIZE: {{ item.size }}</span>
                     </div>
             <div class="quantity-controls">
                 <a class="plus-button" href="{% url 'add_to_cart' item.product.id %}">+</a>

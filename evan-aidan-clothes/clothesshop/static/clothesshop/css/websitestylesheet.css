@@ -323,6 +323,31 @@ figure.card2{
 .description{
   font-size: 1rem;
 }
+.size-selector {
+  display: flex;
+  gap: 10px;
+}
+
+.size-selector input[type="radio"] {
+  display: none; /* hide native radio buttons */
+}
+
+.size-selector label {
+  padding: 10px 20px;
+  border: 2px solid #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+.size-selector input[type="radio"]:checked + label {
+  background-color: #333;
+  color: #fff;
+}
+
+.size-selector label.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 /* END PRODUCT DESCRIPTION */
 
 /* START MENU STYLES */
@@ -443,6 +468,9 @@ figure.card2{
 .cart-item-details{
   display: flex;
   flex-direction: column;
+}
+.cart-item-size{
+  color:#464646;
 }
 .carttotal{
   width: 100%;

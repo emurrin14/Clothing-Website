@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let scrollPosition = 0;
 
+    //global page image load in
+    document.addEventListener('DOMContentLoaded', function() {
+        
+
     // Create blackout overlay
     const overlay = document.createElement('div');
     overlay.classList.add('body-overlay');
@@ -186,3 +190,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
