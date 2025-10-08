@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollPosition = 0;
 
     //global page image load in
-    document.addEventListener('DOMContentLoaded', function() {
-        
+//    document.addEventListener('DOMContentLoaded', function() {
+      
 
     // Create blackout overlay
     const overlay = document.createElement('div');
@@ -120,7 +120,7 @@ function switchText() {
       textBox.innerHTML = messages[current];
       textBox.style.opacity = 1;
     }, 500);
-  }
+}
 
   setInterval(switchText, 8000);
 
@@ -190,4 +190,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-

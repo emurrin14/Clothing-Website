@@ -24,14 +24,14 @@
           {% with images=listing.images.all %}
             <div class="hover-image">
               {% if images %}
-                <img class="hover-main" src="{{ images.0.image.url }}" alt="{{ listing.title }}" loading="lazy">
-                {% if images|length > 1 %}
-                  <img class="hover-alt" src="{{ images.1.image.url }}" alt="{{ listing.title }}" loading="lazy">
-                {% else %}
-                  <img class="hover-alt" src="{{ images.0.image.url }}" alt="{{ listing.title }}" loading="lazy">
-                {% endif %}
+                  <img class="hover-main" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
+              {% if images|length > 1 %}
+                  <img class="hover-alt" src="{{ images.1.image.url }}" alt="{{ listing.title }}">
               {% else %}
-                <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+                  <img class="hover-alt" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
+              {% endif %}
+            {% else %}
+              <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
             {% endif %}
           </div>
             <figcaption>
