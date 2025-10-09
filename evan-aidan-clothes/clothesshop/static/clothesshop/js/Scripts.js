@@ -137,12 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const imageUrls = Array.from(thumbnails).map(thumb => thumb.src);
 
-    //add outline to thumbnail
-    if (thumbnails.length > 0) {
-        thumbnails[0].classList.add('thumbnail-active');
-    }
-    
-
         //global fade function
     function fadeToImage(url) {
         if (primaryImage.src === url) return;
@@ -189,5 +183,10 @@ document.addEventListener('DOMContentLoaded', function() {
             fadeToImage(thumb.src);
         });
     });
+
+    // Set initial active thumbnail
+    if (thumbnails.length > 0) {
+        thumbnails[0].classList.add('thumbnail-active');
+    }
 });
     

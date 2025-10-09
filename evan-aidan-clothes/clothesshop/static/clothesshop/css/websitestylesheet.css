@@ -219,7 +219,7 @@ width:auto
 /* END INDEX IMG CONTENT GRID */
 /* START PRODUCT HEADER */
 .product-header{
-  width: 90%;
+  width: 80%;
   margin-right: auto;
   margin-left: auto;
   display: flex;
@@ -234,10 +234,10 @@ width:auto
   .center-row-flex {
   display: flex;
   flex-direction: row;
-  justify-content: start;
-  align-items: flex-start;
-  width: 90%;
-  gap: 1rem; /* Add gap between flex items */
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 80%;
+  gap: 3rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -261,10 +261,16 @@ width:auto
   cursor: pointer;
   font-size: 1.5rem;
 }
+.first-child-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 50%;
+  padding-right: 3rem;
+}
 .image-column {
   display: flex;
   gap: 1rem; 
-  width: 50%; /* Set a width to control the size of the primary image */
 }
 .primaryimagecontainer {
   position: relative;
@@ -280,6 +286,8 @@ width:auto
 }
 .card2 img.thumbnail-active{
   box-shadow: -4px 0 0 0 black;
+  transform: translateX(-4px);
+  transition: transform 0.4s ease, box-shadow 0.2s ease;
 }
 .grid2{
   display:flex;
@@ -287,6 +295,7 @@ width:auto
   flex-direction: column;
   flex-wrap: wrap;
   margin-top: 0rem;
+  margin-right: 1.5rem;
 }
 
 
@@ -311,27 +320,38 @@ figure.card2{
 
 /* START PRODUCT DESCRIPTION */  
 .productinfo{
-  flex-direction: column;
   margin-right: 0rem;
-  margin-top: 0rem;
-  gap: 1rem;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   flex-grow: 1; 
+  gap: 1rem;
+  padding: 0rem 1rem 0rem 0rem;
+  margin-left: 2rem;
 }
 .prod-title{
   color: var(--bg);
+  font-size: 2rem;
+}
+.product-reviews{
   font-size: 1.5rem;
+  padding: 1rem 1rem 1rem 0rem;
 }
 .price{
   color: var(--bg);
-  font-size: 1rem;
+  font-size: 2rem;
 }
 .description{
   font-size: 1rem;
 }
 .size-selector {
   display: flex;
-  gap: 10px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .size-selector input[type="radio"] {
