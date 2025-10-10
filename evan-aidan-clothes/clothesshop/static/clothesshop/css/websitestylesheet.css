@@ -32,6 +32,8 @@ img {
   font-weight: 600;
   font-style: normal;
 }
+/* spinners */
+
 
 hr {
   display: block;
@@ -167,55 +169,69 @@ width:auto
 
 /* START INDEX IMG CONTENT GRID */
 .grid{
-      display:grid;
-      grid-template-columns: auto auto auto;
-      gap:var(--gap);
-      row-gap: 70px;
-      margin-bottom: 65px;
-      margin-left: 1rem;
-      margin-right: 1rem;
+  display: grid;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  grid-template-columns: repeat(3, 1fr); /* three equal columns */
+  gap: var(--gap);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); } /* two columns on medium screens */
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; } /* one column on small screens */
+}
+figure.card{
+  margin: 0;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+.product-title{
+  text-decoration: none;
+}
 
-    }
-    figure.card{
-      margin:0;
-      background:var(--card);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      text-decoration: none;
-    }
-    .product-title{
-      text-decoration: none;
-    }
+.card img{
+  anchor-name: --mainimg;
+  width:100%;
+  height:auto;
+  aspect-ratio: 1/1;
+  display:block;
+  object-fit:cover;
+  position: relative;
+}
 
-    .card img{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:cover;
-      aspect-ratio: 1/1;
-    }
+figcaption{
+  padding:0px 1rem;
+  font-size:1.5rem;
+  color:var(--bg);
+  text-decoration: none;
+}
+.placeholder{
+  display:block;
+  width: anchor(--mainimg);
+  height: anchor(--mainimg);
+}
 
-    figcaption{
-      padding:0px 1rem;
-      font-size:1.5rem;
-      color:var(--bg);
-      display:flex;align-items:center;justify-content:center;gap:.5rem;
-      text-decoration: none;
-    }
-
-    /* change image on hover */
-    .hover-image .hover-alt {
-      display:none;
-    }
-
-    .hover-image:hover .hover-alt {
-      display:block;
-    }
-
-    .hover-image:hover .hover-main {
-      display:none;
-    }
+figure.card .mainimg {
+  display:block
+}
+figure.card .hoverimg {
+  display: none;
+}
+figure.card:hover .mainimg {
+  display: none;
+}
+figure.card:hover .hoverimg {
+  display:block
+}
 /* END INDEX IMG CONTENT GRID */
 /* START PRODUCT HEADER */
 .product-header{

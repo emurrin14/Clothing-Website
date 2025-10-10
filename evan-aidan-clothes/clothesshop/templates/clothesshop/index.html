@@ -1,54 +1,45 @@
 {% extends "clothesshop/base.html" %}
 {% load static %}
 
-{% block title %}Clothesshop - All Listings{% endblock %}
-
-  {% block extra_head %}
-    <style>
-        .footer-column .shoplink{
-            text-decoration: underline;
-            text-decoration-thickness: 12%;
-        }
-    </style>
-  {% endblock %}
-
-{% block content %}
-  <!-- image content -->
-  <div class="wrap imgcontent">
-    <section class="grid" aria-label="Gallery of images">
-      {% if listings %}
-      {% for listing in listings %}
-
-      <figure class="card">
-          <a href="{% url 'listing' listing.id %}" class="product-title">
-          {% with images=listing.images.all %}
-            <div class="hover-image">
-              {% if images %}
-                  <img class="hover-main" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
-              {% if images|length > 1 %}
-                  <img class="hover-alt" src="{{ images.1.image.url }}" alt="{{ listing.title }}">
-              {% else %}
-                  <img class="hover-alt" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
-              {% endif %}
-            {% else %}
-              <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
-            {% endif %}
-          </div>
-            <figcaption>
-              <span>{{ listing.title }}</span>
-            </figcaption>
-          </a>
-        </figure>
-      {% endwith %}
-      {% endfor %}
-
-      {% else %}
-      <p class="no-listings">No listings found at the moment.</p>
-      {% endif %}
-
-    </section>
-  </div>
+{% block title %}SHOP{% endblock %}
+{% block extra_head %}
+  <style>
+      .footer-column .shoplink{
+          text-decoration: underline;
+          text-decoration-thickness: 12%;
+      }
+  </style>
 {% endblock %}
 
+{% block content %}
+<body>
+  <div class="grid">
+    {% if listings %}
+    {% for listing in listings %}
+    {% with images=listing.images.all %}
+      <a href="{% url 'listing' listing.id %}" class="product-title">
+        <figure class="card">
+          {% if images %}
+          <div class="ui placeholder" id="imgloadingplaceholder"></div>
+            <img class="mainimg" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
+          {% if images|length > 1 %}
+            <img class="hoverimg" src="{{ images.1.image.url }}" alt="{{ listing.title }}">
+          {% else %}
+            <img class="hoverimg "src="{{ images.0.image.url }}" alt="{{ listing.title }}">
+          {% endif %}
+          
+          {% else %}
+            <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image available">
+          {% endif %}
+          <figcaption>{{ listing.title }}</figcaption>
+        </figure>
+      </a>
+    {% endwith %}
+    {% endfor %}
+    {% else %}
+      <p class="no-listings">No listings found at the moment.</p>
+    {% endif %}
+</body>
+{% endblock %}
 {% block scripts %}
 {% endblock %}
