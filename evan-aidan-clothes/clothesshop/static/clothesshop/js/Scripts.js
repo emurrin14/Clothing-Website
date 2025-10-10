@@ -1,3 +1,52 @@
+//image popup on scroll into view
+document.addEventListener("DOMContentLoaded", () => {
+  const revealElements = document.querySelectorAll(".reveal");
+
+  revealElements.forEach(el => {
+    const images = el.querySelectorAll("img");
+    const imgPromises = Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => img.onload = resolve);
+    });
+
+    Promise.all(imgPromises).then(() => {
+      const origin = el.dataset.origin || "bottom";
+      const distance = el.dataset.distance || "30px";
+      const scale = el.dataset.scale || "0.9";
+
+      switch(origin) {
+        case "top":    el.style.transform = `translateY(-${distance}) scale(${scale})`; break;
+        case "bottom": el.style.transform = `translateY(${distance}) scale(${scale})`; break;
+        case "left":   el.style.transform = `translateX(-${distance}) scale(${scale})`; break;
+        case "right":  el.style.transform = `translateX(${distance}) scale(${scale})`; break;
+      }
+    });
+  });
+
+  const observerOptions = { root: null, threshold: 0.1 };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      const duration = el.dataset.duration || "600";
+      const delay = el.dataset.delay || "0";
+
+      el.style.transitionDuration = `${duration}ms`;
+      el.style.transitionDelay = `${delay}ms`;
+
+      if (entry.isIntersecting) {
+        el.style.transform = "translate(0,0) scale(1)";
+        el.classList.add("is-visible");
+
+        observer.unobserve(el);
+      }
+    });
+  }, observerOptions);
+
+  revealElements.forEach(el => observer.observe(el));
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Sidebar toggle
     const hamburger = document.querySelector('.hamburger-menu');
@@ -5,9 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let scrollPosition = 0;
 
-    //global page image load in
-//    document.addEventListener('DOMContentLoaded', function() {
-      
 
     // Create blackout overlay
     const overlay = document.createElement('div');
@@ -189,4 +235,3 @@ document.addEventListener('DOMContentLoaded', function() {
         thumbnails[0].classList.add('thumbnail-active');
     }
 });
-    
