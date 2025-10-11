@@ -165,12 +165,14 @@ hr {
 /* Hamburger bars */
 .hamburger-menu {
   cursor: pointer;
+  color: #18312D;
   height: 40px;
   width: 40px;
   position: relative;
 }
 .hamburger-svg{
   position: absolute;
+  color: #18312D;
   top: 0;
   left: 0;
   transition: transform 0.2s cubic-bezier(.17,.67,.48,1.17);
@@ -489,8 +491,10 @@ figure.card2{
   z-index: 1001;
 }
 .sidebar-links-container{
-  margin-top: 20px;
-  position: absolute;
+  margin-top: 0;
+  display: inline-block;
+  transition: transform 0.1s linear;
+  position: relative;
 }
 /* Sidebar links */
 .sidebar a{

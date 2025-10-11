@@ -109,12 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//positioning of sidebar links relative to topbar pos
-const target = getElementById('topbar1');
-const floating = getElementById('sidebar-links');
-const rect = target.getBoundingClientRect();
-    floating.style.position = absolute
-    floating.style.top = rect.top + window.scrollY + 80 + 'px';
+
+document.addEventListener('DOMContentLoaded', () => {
+const topbar = document.getElementById('topbar1');
+const links = document.getElementById('sidebar-links');
+
+let offset = topbar.getBoundingClientRect().bottom;
+if (offset < 0) offset = 0;
+links.style.transform = `translateY(${offset}px)`;
+
+window.addEventListener('scroll', () => {
+  let offset = topbar.getBoundingClientRect().bottom;
+  if (offset < 0) offset = 0;
+    links.style.transform = `translateY(${offset}px)`;
+  });
+});
 
 
 
