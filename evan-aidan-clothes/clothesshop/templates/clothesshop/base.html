@@ -1,3 +1,6 @@
+{% comment "" %}API TOKEN FOR SMTP: 
+mlsn.e8794b9d2c496d044d8d9f6912d309d038b59aa95596376b3cf535f4d5d9e425
+{% endcomment %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,20 +26,20 @@
     <div class="content-wrap">
 
       <!-- START TOPBAR -->
-      <div class="topbar1">
+      <div class="topbar1" id="topbar1">
         <div class="topbar1textleft" id="topbar1textleft">
-            <a href="https://discord.gg/vzDV2ddt2V" target="_blank">JOIN OUR DISCORD</a>
+          <a href="https://discord.gg/vzDV2ddt2V" target="_blank">JOIN OUR DISCORD</a>
         </div>
         {% if sale_end_date_iso %}
           <div class="topbar1textcenter">
             B-DAY COUNTDOWN: 
             <span id="sale-timer" data-target-date="{{ sale_end_date_iso }}"></span>
           </div>
-          {% else %}
+        {% else %}
           <div class="topbar1textcenter">
               SIGN UP FOR EMAILS!
           </div>
-          {% endif %}
+        {% endif %}
       </div>
       <!-- END TOPBAR -->
     
@@ -45,10 +48,16 @@
     
         <!-- Left Group -->
         <div class="header-group left">
-          <div class="hamburger-menu menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="hamburger-menu">
+            <svg class="hamburger-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="#f1f1f1">
+              <rect x="2" y="6" width="32" height="4"/>
+              <rect x="2" y="18" width="32" height="4"/>
+              <rect x="2" y="30" width="32" height="4"/>
+            </svg>
+            <svg class="hamburger-x-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="#f1f1f1">
+              <rect x="2" y="18" width="36" height="4" transform="rotate(45 20 20)"/>
+              <rect x="2" y="18" width="36" height="4" transform="rotate(-45 20 20)"/>
+            </svg>
           </div>
         </div>
       
@@ -99,7 +108,7 @@
     
       <!-- START TOGGLEABLE SIDEBAR MENU -->
       <div class="sidebar">
-        <div class="sidebar-links-container">
+        <div class="sidebar-links-container" id="sidebar-links">
           <a href="{% url 'index' %}">HOME</a>
           <a href="#">JEANS</a>
           <a href="#">SHIRTS</a>

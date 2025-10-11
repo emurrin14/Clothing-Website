@@ -1,5 +1,5 @@
 :root{
-      --main: #FFFBF2;
+      --main: white;
       --bg: #222222;
       --card: #ffffff;
       --hover: #72a7db;
@@ -29,16 +29,56 @@ html {
   font-style: normal;
   font-display: swap;
 }
-
-.reveal {
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-}
+/* img grow into viewport on scroll */
 .reveal.is-visible {
   opacity: 1;
   transform: translate(0, 0) scale(1);
 }
+.reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.reveal img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.4s ease-out, filter 0.5s ease-out;
+  filter: blur(10px);
+}
+
+/* When loaded */
+.reveal img[src] {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Shimmer placeholder */
+.shimmer-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.25) 20%,
+    rgba(255, 255, 255, 0.08) 40%
+  );
+  background-color: #e0e0e0;
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+  z-index: 2;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -125,41 +165,40 @@ hr {
 /* Hamburger bars */
 .hamburger-menu {
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 25px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   position: relative;
 }
-
-.hamburger-menu span {
-  display: block;
-  height: 3px;
-  width: 30px;
-  background-color: var(--bg);
+.hamburger-svg{
   position: absolute;
-  transition: all 0.3s ease;
+  top: 0;
+  left: 0;
+  transition: transform 0.2s cubic-bezier(.17,.67,.48,1.17);
+}
+.hamburger-svg.active{
+  transform: scale(0);
+}
+.hamburger-x-svg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.2s cubic-bezier(.17,.67,.48,1.17);
+  transform: scale(0);
+}
+.hamburger-x-svg.active{
+  transform: scale(1);
+  z-index: 1000;
 }
 
-
-
-/* Hamburger bars */
-.hamburger-menu span:nth-child(1) { top: 0%;  }
-.hamburger-menu span:nth-child(2) { top: 50%;  }
-.hamburger-menu span:nth-child(3) { bottom: 0%;  }
-
-/* Active menu animation */
-.hamburger-menu.active span:nth-child(1) { top: 50%; transform: translate(-0%, -50%) rotate(45deg); }
-.hamburger-menu.active span:nth-child(2) { opacity: 0; }
-.hamburger-menu.active span:nth-child(3) { top: 50%; transform: translate(-0%, -50%) rotate(-45deg); }
-
+.hamburger-menu svg{
+  fill: var(--text);
+}
 /* END STICKY HEADER */
 
 /* START TOP HEADER */
 .topbar1 {
   position: relative;
-  background-color: var(--bg);  
+  background-color: var(--text);  
   justify-content: center;
   align-items: center;
   width:100%;
@@ -451,6 +490,7 @@ figure.card2{
 }
 .sidebar-links-container{
   margin-top: 20px;
+  position: absolute;
 }
 /* Sidebar links */
 .sidebar a{
@@ -736,7 +776,7 @@ figure.card2{
 
 /* START FOOTER STYLES */
 .site-footer {
-  background-color: var(--bg);
+  background-color: var(--text);
   color: white;
   padding: 2rem 1rem;
   margin-top: 4rem;

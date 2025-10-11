@@ -1,31 +1,34 @@
-//image popup on scroll into view
 document.addEventListener("DOMContentLoaded", () => {
   const revealElements = document.querySelectorAll(".reveal");
 
-  revealElements.forEach(el => {
-    const images = el.querySelectorAll("img");
-    const imgPromises = Array.from(images).map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise(resolve => img.onload = resolve);
-    });
-
-    Promise.all(imgPromises).then(() => {
-      const origin = el.dataset.origin || "bottom";
-      const distance = el.dataset.distance || "30px";
-      const scale = el.dataset.scale || "0.9";
-
-      switch(origin) {
-        case "top":    el.style.transform = `translateY(-${distance}) scale(${scale})`; break;
-        case "bottom": el.style.transform = `translateY(${distance}) scale(${scale})`; break;
-        case "left":   el.style.transform = `translateX(-${distance}) scale(${scale})`; break;
-        case "right":  el.style.transform = `translateX(${distance}) scale(${scale})`; break;
-      }
-    });
-  });
-
   const observerOptions = { root: null, threshold: 0.1 };
 
-  const observer = new IntersectionObserver((entries, observer) => {
+  // --- 1️⃣ Lazy-load observer (loads images only when near viewport) ---
+  const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const img = entry.target;
+      const realSrc = img.dataset.src;
+
+      if (realSrc) {
+        img.src = realSrc;
+        img.removeAttribute("data-src");
+      }
+
+      observer.unobserve(img);
+    });
+  }, {
+    rootMargin: "200px", // load slightly before entering viewport
+  });
+
+  // Observe all lazy images
+  document.querySelectorAll("img[data-src]").forEach(img => {
+    lazyImageObserver.observe(img);
+  });
+
+  // --- 2️⃣ Reveal animation observer ---
+  const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       const el = entry.target;
       const duration = el.dataset.duration || "600";
@@ -35,22 +38,93 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.transitionDelay = `${delay}ms`;
 
       if (entry.isIntersecting) {
+        el.style.opacity = "1";
         el.style.transform = "translate(0,0) scale(1)";
         el.classList.add("is-visible");
-
         observer.unobserve(el);
       }
     });
   }, observerOptions);
 
-  revealElements.forEach(el => observer.observe(el));
+  // --- 3️⃣ Helper function ---
+  const isInViewport = el => {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  };
+
+  // --- 4️⃣ Process each reveal element ---
+  revealElements.forEach(el => {
+    // Add shimmer placeholder
+    const placeholder = document.createElement("div");
+    placeholder.className = "shimmer-placeholder";
+    el.appendChild(placeholder);
+
+    // Find images inside
+    const images = el.querySelectorAll("img");
+
+    // Wait for all to load
+    const imgPromises = Array.from(images).map(img => {
+      if (img.complete && img.src) return Promise.resolve();
+      return new Promise(resolve => (img.onload = resolve));
+    });
+
+    Promise.all(imgPromises).then(() => {
+      placeholder.remove(); // remove shimmer when done
+
+      // Apply starting transform
+      const origin = el.dataset.origin || "bottom";
+      const distance = el.dataset.distance || "30px";
+      const scale = el.dataset.scale || "0.9";
+
+      el.style.opacity = "0";
+
+      switch (origin) {
+        case "top":
+          el.style.transform = `translateY(-${distance}) scale(${scale})`;
+          break;
+        case "bottom":
+          el.style.transform = `translateY(${distance}) scale(${scale})`;
+          break;
+        case "left":
+          el.style.transform = `translateX(-${distance}) scale(${scale})`;
+          break;
+        case "right":
+          el.style.transform = `translateX(${distance}) scale(${scale})`;
+          break;
+      }
+
+      // Reveal if already in view or observe for scroll
+      if (isInViewport(el)) {
+        requestAnimationFrame(() => {
+          el.style.transitionDuration = `${el.dataset.duration || "600"}ms`;
+          el.style.transitionDelay = `${el.dataset.delay || "0"}ms`;
+          el.style.opacity = "1";
+          el.style.transform = "translate(0,0) scale(1)";
+          el.classList.add("is-visible");
+        });
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+  });
 });
 
+//positioning of sidebar links relative to topbar pos
+const target = getElementById('topbar1');
+const floating = getElementById('sidebar-links');
+const rect = target.getBoundingClientRect();
+    floating.style.position = absolute
+    floating.style.top = rect.top + window.scrollY + 80 + 'px';
 
+
+
+    
 document.addEventListener('DOMContentLoaded', function() {
     // Sidebar toggle
-    const hamburger = document.querySelector('.hamburger-menu');
+    const hamburger = document.querySelector('.hamburger-svg');
+    const x = document.querySelector('.hamburger-x-svg');
     const sidebar = document.querySelector('.sidebar');
+    const bars = document.querySelector('.hamburger-menu');
 
     let scrollPosition = 0;
 
@@ -76,8 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hamburger && sidebar) {
         hamburger.addEventListener('click', function() {
             this.classList.toggle('active');
+            x.classList.toggle('active');
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');   // Show/hide blackout
+
 
             if (sidebar.classList.contains('active')) {
                 disableScroll();
@@ -86,10 +162,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        x.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+            hamburger.classList.remove('active');
+            x.classList.remove('active');
+            overlay.classList.remove('active');
+            enableScroll();
+            });
+
         // Close sidebar when clicking the blackout
         overlay.addEventListener('click', function() {
             sidebar.classList.remove('active');
             hamburger.classList.remove('active');
+            x.classList.remove('active');
             overlay.classList.remove('active');
             enableScroll();
         });
@@ -204,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // Arrow functions
+    // arrow functions
     function updateImage(direction) {
         const currentSrc = primaryImage.src;
         let currentIndex = imageUrls.findIndex(url => url === currentSrc);
