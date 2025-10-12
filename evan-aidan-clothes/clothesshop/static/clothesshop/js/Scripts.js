@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     lazyImageObserver.observe(img);
   });
 
+
+
   // --- 2️⃣ Reveal animation observer ---
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -327,5 +329,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set initial active thumbnail
     if (thumbnails.length > 0) {
         thumbnails[0].classList.add('thumbnail-active');
+    }
+});
+
+// AXEL email send
+document.addEventListener('DOMContentLoaded', function() {
+    const subscribeForm = document.getElementById('newsletter-form');
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            const url = this.action; // Get URL from the form's action attribute
+            const formData = new FormData(this);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message); // Or update the DOM with a success message
+                    subscribeForm.reset();
+                } else {
+                    alert(data.message); // Or show an error message
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
     }
 });

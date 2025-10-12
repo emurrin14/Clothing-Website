@@ -21,5 +21,5 @@ urlpatterns = [
     path("delete_my_account/", views.delete_my_account, name="delete_my_account"),
     path('delete_account/', views.delete_user, name='delete_account'),
     path('orders/', views.orders, name='orders'),
-
+    path('ajax-subscribe/', views.ajax_subscribe, name='ajax_subscribe'),
 ]

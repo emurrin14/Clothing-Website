@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, RegistrationForm
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from .forms import LoginForm, RegistrationForm, SubscriberForm
 from .models import Listing, Cart, CartItem, Stock
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.models import User 
@@ -200,6 +200,19 @@ def delete_user(request):
         user = request.user
         user.delete()
         return redirect('index') 
+
+
+
+def ajax_subscribe(request):
+    if request.method == "POST":
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success', 'message': 'Thanks for subscribing!'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid email.'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+
 
 
 def instagram(request):

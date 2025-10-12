@@ -32,14 +32,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "clothesshop.apps.ClothesshopConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "anymail",
+    "clothesshop.apps.ClothesshopConfig",
 ]
+
+ANYMAIL = {
+    "MAILERSEND_API_TOKEN": "mlsn.42f0f4888a60fdcb66bcc0742c035e692be1fa8c020b6efce34e68e470bdb675",
+}
+
+EMAIL_BACKEND = "anymail.backends.mailersend.EmailBackend"
+DEFAULT_FROM_EMAIL = "MS_Xf2yrW@test-xkjn41m6e094z781.mlsender.net"  # if you don't already have this in settings
+SERVER_EMAIL = "evanwmurrin@gmail.com"  # ditto (default from-email for Django errors)
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -130,11 +141,6 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
-# Email backend for development (prints emails to console)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

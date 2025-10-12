@@ -89,3 +89,11 @@ class CartItem(models.Model):
 
     def subtotal(self):
         return self.product.price * self.quantity
+    
+    
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
