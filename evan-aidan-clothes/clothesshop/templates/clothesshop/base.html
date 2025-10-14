@@ -43,31 +43,21 @@
     
       <!-- START HEADER -->
       <header id="dynamic-header" class="header">
+      <div id="header-parent" class="header-bg">
     
         <!-- Left Group -->
-        <div class="header-group left">
-          <div class="hamburger-menu">
-            <svg class="hamburger-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" stroke="#18312D" fill="#18312D">
-              <rect x="2" y="6" width="32" height="4"/>
-              <rect x="2" y="18" width="32" height="4"/>
-              <rect x="2" y="30" width="32" height="4"/>
-            </svg>
-            <svg class="hamburger-x-svg" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" stroke="#18312D" fill="#18312D">
-              <rect x="2" y="18" width="36" height="4" transform="rotate(45 20 20)"/>
-              <rect x="2" y="18" width="36" height="4" transform="rotate(-45 20 20)"/>
-            </svg>
-          </div>
-        </div>
-      
-        <!-- Center Group -->
-        <div class="header-group center">
+        <div id ="header-left" class="header-group left">
           <a href="{% url 'index' %}">
-            <img class="title" src="{% static 'images/title.png' %}" alt="title">
+            <img id="headertitlelogo" class="title" src="{% static 'images/FRAYED-transparent.png' %}" alt="title">
           </a>
+            <a href="#">NEW ARRIVALS</a>
+            <a href="#">DENIM</a>
+            <a href="#">SHIRTS</a>
+            <a href="#">TRACK YOUR ORDER</a>
         </div>
-      
+            
         <!-- Right Group -->
-        <div class="header-group right icons-right">
+        <div id="header-right" class="header-group right icons-right">
           <a href="{% url 'view_cart' %}">
             <svg fill="none" stroke="#000" stroke-width="2" xmlns="http://www.w3.org/2000/svg" 
                  viewBox="0 0 30 30" width="30" height="30" transform="scale(-1 1)">
@@ -101,21 +91,9 @@
             </div>
           </div>
         </div>
-      
-      </header>
-    
-      <!-- START TOGGLEABLE SIDEBAR MENU -->
-      <div class="sidebar">
-        <div class="sidebar-links-container" id="sidebar-links">
-          <a href="{% url 'index' %}">HOME</a>
-          <a href="#">JEANS</a>
-          <a href="#">SHIRTS</a>
-          <a href="#">JORTS</a>
-          <a href="#">ABOUT US</a>
-        </div>
       </div>
-      <!-- END TOGGLEABLE SIDEBAR MENU -->
-    
+      </header>
+      
       <main>
         {% block content %}{% endblock %}
       </main>

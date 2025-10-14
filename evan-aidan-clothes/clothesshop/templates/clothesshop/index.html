@@ -12,6 +12,11 @@
 {% endblock %}
 
 {% block content %}
+<div class="landingimagecontainer">
+  <img id="landing-logo" class="landing-logo" src="{% static 'images/FRAYED-transparent.png' %}" alt="title">
+  <img id="landing-main" class="landing-main" src="{% static 'images/plantsbg.png' %}" alt="preview">
+</div>
+
 <body>
   {% for i in "123"|make_list %}
   <div id="gridimgcontainer" class="grid">
