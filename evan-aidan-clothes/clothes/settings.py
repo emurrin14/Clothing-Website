@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 ANYMAIL = {
-    "MAILERSEND_API_TOKEN": "mlsn.42f0f4888a60fdcb66bcc0742c035e692be1fa8c020b6efce34e68e470bdb675",
+    "MAILERSEND_API_TOKEN": "",
 }
 
 EMAIL_BACKEND = "anymail.backends.mailersend.EmailBackend"
