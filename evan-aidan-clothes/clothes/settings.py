@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 ANYMAIL = {
-    "MAILERSEND_API_TOKEN": "",
+    "MAILERSEND_API_TOKEN": os.environ.get("EMAIL_API_TOKEN"),
 }
 
 EMAIL_BACKEND = "anymail.backends.mailersend.EmailBackend"
