@@ -12,26 +12,31 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'index' %}">
-  <div class="landingImageContainer">
-        <div class="landingImages">
-            <img id="landing-main" class="landing-main" src="{% static 'images/landingImage0.png' %}" alt="preview">
-            <img id="landing-main" class="landing-main" src="{% static 'images/landingImage1.png' %}" alt="preview">
-            <img id="landing-main" class="landing-main" src="{% static 'images/landingImage2.png' %}" alt="preview">
-        </div>
+  <div class="landingImageGrid">
+        <!-- PANEL 1 -->
+        <figure class="landingImagePanel">
+          <img src="{% static 'images/landingImage0.png' %}" alt="landing image">
+        </figure>
 
-      <div class="landingImageFilter"></div>
+        <!-- PANEL 2 -->
+        <figure class="landingImagePanel">
+          <img src="{% static 'images/landingImage1.png' %}" alt="landing image">
+          <figcaption class="landingImageText" aria-hidden="false">
+            <div class="landingImageHeader">OUR FIRST DROP</div>
+            <div class="landingImageHeader2">The First.</div>
+            <a href="#">
+              <button class="slide-fill-btn">
+                <span>SHOP NOW</span>
+              </button>
+            </a>
+          </figcaption>
+        </figure>
+
+        <!-- PANEL 3 -->
+        <figure class="landingImagePanel">
+          <img src="{% static 'images/landingImage2.png' %}" alt="landing image">
+        </figure>
   </div>
-    <div class="landingImageText">
-      <h1>OUR FIRST DROP</h1>
-      <p>THE FIRST.</p>
-        <button class="shopNowBtn">
-            <span>
-              <span>SHOP NOW</span>
-            </span>
-        </button>
-    </div>
-</a>
 
 
 <body>
@@ -41,7 +46,7 @@
     {% for listing in listings %}
     {% with images=listing.images.all %}
       <a href="{% url 'listing' listing.id %}" class="product-title">
-        <figure class="card reveal" 
+        <figure class="card reveal" l,.
           data-origin="bottom" 
           data-distance="30px" 
           data-duration="400" 

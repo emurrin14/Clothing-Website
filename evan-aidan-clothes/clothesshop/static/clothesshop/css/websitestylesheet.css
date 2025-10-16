@@ -166,101 +166,82 @@ hr {
 /* END TOP HEADER */
 
 /* START LANDING PHOTO */
-.landingImageContainer{
+.landingImageGrid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  height: 100vh;
   width: 100%;
-  position: relative;
+  overflow: hidden;
 }
-.landingImages{
-  display:flex;
+.landingImagePanel{ /* LANDING IMAGE CONTAINERS */
+  margin: 0;
 }
-.landing-main{
-  width: auto;
-  height: 100%;
-}
-.landingImageFilter{
+.landingImagePanel img{
   display: block;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  object-fit: cover;
+  object-position: center;
 }
-.landingImageText{
+.landingImageText{ /* CENTERED TEXT */
   position: absolute;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  top: 50%;
+  top: 55%;
   left: 50%;
-  transform: translate(-50%, 50%);
-  z-index: 2;
+  transform: translate(-50%,-50%);
+  padding: 2rem;
+  text-align: center;
+  color: white;
 }
-.landingImageText h1{
-  font-size: 2rem
+.landingImageHeader{
+  font-size: clamp(2rem, 4vh, 4rem);
+  font-weight: 100;
+  margin-bottom: 1.5rem;
 }
-.landingImageText p{
-  font-size: 1.2rem;
+.landingImageHeader2{
+  font-size: clamp(1rem, 2vh, 2rem);
+  font-weight: 100;
+  margin-bottom: 2rem;
 }
-.shopNowBtn {
+/* SHOP BUTTON ANIMATIONS */
+.slide-fill-btn {
   position: relative;
   display: inline-block;
   padding: 1rem 2rem;
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: white;
   background: transparent;
-  border: none;
+  border: 2px solid white;
   cursor: pointer;
   overflow: hidden;
-  font-family: obvia, sans-serif;
-  font-weight: 600;
-  font-size: 1.15rem;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: .8px;
+  transition: color 0.3s cubic-bezier(0.7, 0, 0.2, 1);
 }
 
-.shopNowBtn span {
-  display: block;
+.slide-fill-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: white;
+  z-index: 0;
+  transition: width 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.slide-fill-btn span {
   position: relative;
   z-index: 1;
 }
 
-.shopNowBtn > span {
-  overflow: hidden;
+.slide-fill-btn:hover {
+  color: black;
 }
 
-
-.shopNowBtn::before,
-.shopNowBtn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--text);
-  z-index: 0;
-}
-
-.shopNowBtn::before {
-  width: 135%;
-  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0% 0%);
-  transform: translate3d(-100%, 0, 0);
-}
-
-.shopNowBtn:hover::before {
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.3s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-.shopNowBtn::after {
-  width: 105%;
-  transform: translate3d(100%, 0, 0);
-  transition: transform 0.3s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-.shopNowBtn:hover::after {
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.01s 0.3s cubic-bezier(0.7, 0, 0.2, 1);
+.slide-fill-btn:hover::before {
+  width: 100%;
 }
 /* END LANDING PHOTO */
 
