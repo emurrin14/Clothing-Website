@@ -22,4 +22,5 @@ urlpatterns = [
     path('delete_account/', views.delete_user, name='delete_account'),
     path('orders/', views.orders, name='orders'),
     path('ajax-subscribe/', views.ajax_subscribe, name='ajax_subscribe'),
+    path('tag/<str:tag_name>/', views.listings_by_tag, name='listings_by_tag'),
 ]

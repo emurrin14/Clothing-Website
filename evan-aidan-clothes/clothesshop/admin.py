@@ -1,6 +1,24 @@
 from django.contrib import admin, messages
 from .models import Listing, ListingImage, Cart, CartItem, Sale, Stock, Subscriber
 from clothes.emails import send_sale_email  # our helper function
+from django.utils.translation import gettext_lazy as _
+from taggit.models import Tag
+
+
+class TagListFilter(admin.SimpleListFilter):
+    title = _('tag')  # Display name in admin
+    parameter_name = 'tag'
+
+    def lookups(self, request, model_admin):
+        tags = Tag.objects.all()
+        return [(tag.id, tag.name) for tag in tags]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(tags__id=self.value())
+        return queryset
+
+
 
 # --- Listing admin setup ---
 class ListingImageInline(admin.TabularInline):
@@ -10,6 +28,8 @@ class ListingImageInline(admin.TabularInline):
 
 class ListingAdmin(admin.ModelAdmin):
     inlines = [ListingImageInline]
+    list_display = ('title', 'price', 'status',)
+    list_filter = (TagListFilter, 'status')
 
 # --- Sale email admin action ---
 @admin.action(description="Send Sale Email to selected subscribers")

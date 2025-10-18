@@ -39,42 +39,42 @@
   </div>
 
 
-<body>
-  {% for i in "123"|make_list %}
-  <div id="gridimgcontainer" class="grid">
-    {% if listings %}
-    {% for listing in listings %}
-    {% with images=listing.images.all %}
-      <a href="{% url 'listing' listing.id %}" class="product-title">
-        <figure class="card reveal" l,.
-          data-origin="bottom" 
-          data-distance="30px" 
-          data-duration="400" 
-          data-delay="0" 
-          id="{{i}}">
+  <div class="bodyContent">
 
-          {% if images %}
-            <img class="mainimg" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
-          {% if images|length > 1 %}
-            <img class="hoverimg" src="{{ images.1.image.url }}" alt="{{ listing.title }}">
-          {% else %}
-            <img class="hoverimg" src="{{ images.0.image.url }}" alt="{{ listing.title }}">
-          {% endif %}
-          
-          {% else %}
-            <img src="https://placehold.co/300x200?text=No+Image" alt="No image available">
-          {% endif %}
-          <figcaption class="">{{ listing.title }}</figcaption>
-        </figure>
-      </a>
-    {% endwith %}
-    {% endfor %}
-    {% else %}
-      <p class="no-listings">No listings found at the moment.</p>
-    {% endif %}
+    <section class="bodySection0">
+    <h1>NEW DROPS</h1><br>
+      {% if new %}
+        <div class="bodyGrid0">
+          {% for listings in new|slice:":8" %}
+            {% with images=listings.images.all %}
+              <a href="{% url 'listing' listings.id %}">
+                <figure class="listingCard">
+                  <div class="cardImage">
+                    {% if images %}
+                      <img class="mainImage" src="{{ images.0.image.url }}" alt="{{ listings.title }}">
+                    {% if images|length > 1 %}
+                      <img class="hoverImage" src="{{ images.1.image.url }}" alt="{{ listings.title }}">
+                    {% else %}
+                      <img class="hoverImage" src="{{ images.0.image.url }}" alt="{{ listings.title }}">
+                    {% endif %}
+
+                    {% else %}
+                      <img src="https://placehold.co/300x200?text=No+Image" alt="No image available">
+                    {% endif %}
+                  </div>
+                  <figcaption class="listingTitle">{{ listings.title }}</figcaption>
+                  <figcaption class="listingPrice">${{ listings.price }}</figcaption>
+                </figure>
+              </a>
+            {% endwith %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="no-listings">No listings found at the moment.</p>
+      {% endif %}
+    </section>
+
   </div>
-  {% endfor %}
-</body>
 {% endblock %}
 {% block scripts %}
 {% endblock %}

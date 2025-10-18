@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "anymail",
     "clothesshop.apps.ClothesshopConfig",
+    'taggit',
 ]
 
 ANYMAIL = {

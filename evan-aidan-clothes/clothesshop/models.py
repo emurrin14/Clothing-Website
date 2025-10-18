@@ -1,5 +1,8 @@
+from django.contrib import admin
 from django.db import models
 from django.conf import settings
+from taggit.managers import TaggableManager
+
 
 
 class Listing(models.Model):
@@ -7,11 +10,15 @@ class Listing(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=10, default="active")
+    tags = TaggableManager()
 
     def primary_image(self):
         """Returns the first image associated with this listing, or None."""
         first_image = self.images.first()
         return first_image.image if first_image else None
+    
+    def __str__(self):
+        return self.title
 
 
 class ListingImage(models.Model):

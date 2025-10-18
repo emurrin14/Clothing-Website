@@ -19,9 +19,26 @@ import logging
 logger = logging.getLogger('clothesshop')
 
 def index(request):
+    # ALL LISTINGS
     listings = Listing.objects.all()
-    context = {"listings": listings}
+    #FILTERED TAGS LISTINGS
+    shirts = listings.filter(tags__name__iexact="shirt")
+    pants = listings.filter(tags__name__iexact="pants")
+    shorts = listings.filter(tags__name__iexact="shorts")
+    sweatshirts = listings.filter(tags__name__iexact="sweatshirt")
+    new = listings.filter(tags__name__iexact="new")
+
+    context = {
+        'listings': listings,
+        'shirts': shirts,
+        'pants': pants,
+        'shorts': shorts,
+        'sweatshirts':sweatshirts,
+        'new': new,
+    }
     return render(request, "clothesshop/index.html", context)
+
+
 
 def listing(request, listing_id):
     # This will fetch the listing or return a 404 Not Found page if it doesn't exist.
@@ -229,3 +246,12 @@ def about(request):
 
 def orders(request):
     return render(request, "clothesshop/orders.html")
+
+
+def listings_by_tag(request, tag_name):
+    listings = Listing.objects.filter(tags__name__iexact=tag_name)
+    context = {
+        'listings': listings,
+        'tag_name': tag_name,
+    }
+    return render(request, 'listings_by_tag.html', context)
